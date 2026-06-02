@@ -44,7 +44,8 @@ function authenticateToken(req, res, next) {
           name: student.name,
           role: 'student',
           branch: 'Öğrenci',
-          classIds: student.classId ? [student.classId] : []
+          classIds: student.classId ? [student.classId] : [],
+          targets: student.targets || []
         };
       }
     }
@@ -116,7 +117,8 @@ app.post('/api/auth/login', (req, res) => {
       name: student.name,
       role: 'student',
       branch: 'Öğrenci',
-      classIds: student.classId ? [student.classId] : []
+      classIds: student.classId ? [student.classId] : [],
+      targets: student.targets || []
     };
   }
 
@@ -134,7 +136,8 @@ app.post('/api/auth/login', (req, res) => {
       name: user.name,
       branch: user.branch || '',
       role: user.role,
-      classIds: user.classIds || []
+      classIds: user.classIds || [],
+      targets: user.targets || []
     }
   });
 });
@@ -147,7 +150,8 @@ app.get('/api/auth/me', authenticateToken, (req, res) => {
     name: req.user.name,
     branch: req.user.branch,
     role: req.user.role,
-    classIds: req.user.classIds || []
+    classIds: req.user.classIds || [],
+    targets: req.user.targets || []
   });
 });
 
@@ -1104,6 +1108,172 @@ app.get('/api/reports/class-summary', authenticateToken, (req, res) => {
     classTotalSolved
   });
 });
+
+// --- WEEKLY TARGETS & HOMEWORK ROUTES (Admin & Teacher only) ---
+
+// Assign weekly targets to a class or an individual student
+app.post('/api/targets', authenticateToken, requireStaff, (req, res) => {
+  const { type, targetId, goals, startDate, endDate } = req.body;
+
+  if (!type || !targetId || !goals || !startDate || !endDate) {
+    return res.status(400).json({ error: 'Eksik veya geçersiz hedef bilgileri.' });
+  }
+
+  if (type !== 'class' && type !== 'student') {
+    return res.status(400).json({ error: 'Geçersiz hedef türü (sadece "class" veya "student" olabilir).' });
+  }
+
+  const students = getCollection('students');
+  const classes = getCollection('classes');
+
+  // Verify class access if teacher
+  if (req.user.role === 'teacher') {
+    const teacherClassIds = req.user.classIds || [];
+    if (type === 'class') {
+      if (!teacherClassIds.includes(targetId)) {
+        return res.status(403).json({ error: 'Bu sınıf için ödev/hedef belirleme yetkiniz yok.' });
+      }
+    } else {
+      const student = students.find(s => s.id === targetId);
+      if (!student || !teacherClassIds.includes(student.classId)) {
+        return res.status(403).json({ error: 'Bu öğrenci için ödev/hedef belirleme yetkiniz yok.' });
+      }
+    }
+  }
+
+  // Double check target existence
+  if (type === 'class') {
+    const cls = classes.find(c => c.id === targetId);
+    if (!cls) return res.status(404).json({ error: 'Sınıf bulunamadı.' });
+  } else {
+    const std = students.find(s => s.id === targetId);
+    if (!std) return res.status(404).json({ error: 'Öğrenci bulunamadı.' });
+  }
+
+  const targetObj = {
+    startDate,
+    endDate,
+    goals,
+    assignedBy: req.user.name,
+    createdAt: new Date().toISOString()
+  };
+
+  let updatedCount = 0;
+  students.forEach(student => {
+    const matchesTarget = (type === 'student' && student.id === targetId) || 
+                          (type === 'class' && student.classId === targetId);
+    if (matchesTarget) {
+      student.targets = student.targets || [];
+      
+      // Remove any existing target for the exact same week to avoid duplication
+      student.targets = student.targets.filter(t => t.startDate !== startDate || t.endDate !== endDate);
+      
+      // Add the new target
+      student.targets.push(targetObj);
+      
+      // Limit history to last 10 entries to keep data size reasonable
+      if (student.targets.length > 10) {
+        student.targets = student.targets.slice(-10);
+      }
+      updatedCount++;
+    }
+  });
+
+  if (updatedCount === 0) {
+    return res.status(404).json({ error: 'Hedef tanımlanacak öğrenci bulunamadı.' });
+  }
+
+  saveCollection('students', students);
+  res.json({ message: `${updatedCount} öğrenci için haftalık hedefler başarıyla tanımlandı.` });
+});
+
+// Get class-wide target completion report
+app.get('/api/targets/report', authenticateToken, requireStaff, (req, res) => {
+  const { classId, startDate, endDate } = req.query;
+
+  if (!classId || !startDate || !endDate) {
+    return res.status(400).json({ error: 'classId, startDate ve endDate parametreleri zorunludur.' });
+  }
+
+  if (req.user.role === 'teacher') {
+    const teacherClassIds = req.user.classIds || [];
+    if (!teacherClassIds.includes(classId)) {
+      return res.status(403).json({ error: 'Bu sınıfın hedef raporlarını görüntüleme yetkiniz yok.' });
+    }
+  }
+
+  const students = getCollection('students');
+  const logs = getCollection('logs');
+
+  const classStudents = students.filter(s => s.classId === classId && s.active);
+  const studentIds = classStudents.map(s => s.id);
+
+  // Filter logs for these students in this date range
+  const rangeLogs = logs.filter(l => studentIds.includes(l.studentId) && l.date >= startDate && l.date <= endDate);
+
+  // Group logs by studentId and branch
+  const studentSolvedStats = {};
+  studentIds.forEach(sid => {
+    studentSolvedStats[sid] = {};
+  });
+
+  rangeLogs.forEach(l => {
+    if (studentSolvedStats[l.studentId]) {
+      studentSolvedStats[l.studentId][l.branch] = (studentSolvedStats[l.studentId][l.branch] || 0) + l.solved;
+    }
+  });
+
+  const reports = classStudents.map(student => {
+    // Find target for the student matching the date range
+    const studentTargets = student.targets || [];
+    const activeTarget = studentTargets.find(t => t.startDate === startDate && t.endDate === endDate);
+
+    const branchReports = {};
+    let totalTarget = 0;
+    let totalSolved = 0;
+
+    const branches = [
+      "Türkçe",
+      "Matematik",
+      "Fen Bilimleri",
+      "T.C. İnkılap Tarihi ve Atatürkçülük",
+      "Din Kültürü ve Ahlak Bilgisi",
+      "Yabancı Dil (İngilizce)"
+    ];
+
+    branches.forEach(b => {
+      const targetVal = activeTarget && activeTarget.goals ? (activeTarget.goals[b] || 0) : 0;
+      const solvedVal = studentSolvedStats[student.id][b] || 0;
+      
+      branchReports[b] = {
+        target: targetVal,
+        solved: solvedVal
+      };
+
+      totalTarget += targetVal;
+      totalSolved += solvedVal;
+    });
+
+    return {
+      studentId: student.id,
+      studentName: student.name,
+      studentNo: student.studentNo,
+      branchReports,
+      totalTarget,
+      totalSolved,
+      hasTarget: !!activeTarget,
+      assignedBy: activeTarget ? activeTarget.assignedBy : null
+    };
+  });
+
+  res.json({
+    classId,
+    startDate,
+    endDate,
+    reports
+  });
+});
+
 
 // --- SERVING STATIC FRONTEND IN PRODUCTION ---
 const distPath = path.join(__dirname, 'dist');
