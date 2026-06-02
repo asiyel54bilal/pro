@@ -1,0 +1,2100 @@
+{
+  "classes": [
+    {
+      "id": "class-bb8e3z71l",
+      "name": "8-S-1"
+    },
+    {
+      "id": "class-7oqeknbtj",
+      "name": "8-N"
+    },
+    {
+      "id": "class-hzfcst4c1",
+      "name": "8-S"
+    },
+    {
+      "id": "class-wy29s345b",
+      "name": "7-A"
+    },
+    {
+      "id": "class-lahp378fg",
+      "name": "8-P"
+    },
+    {
+      "id": "class-8w3oqd08l",
+      "name": "7-T"
+    },
+    {
+      "id": "class-1wnccdfp8",
+      "name": "8-K"
+    },
+    {
+      "id": "class-wxck441em",
+      "name": "8-T-1"
+    },
+    {
+      "id": "class-w3z17pwf6",
+      "name": "7-K-1"
+    },
+    {
+      "id": "class-4vc6blvc1",
+      "name": "8-M1"
+    },
+    {
+      "id": "class-n50973fn1",
+      "name": "8-HİT"
+    },
+    {
+      "id": "class-vw6ys8gw8",
+      "name": "8-M"
+    },
+    {
+      "id": "class-v19nxijjm",
+      "name": "8-P-1"
+    },
+    {
+      "id": "class-oifky5uav",
+      "name": "8-N-1"
+    },
+    {
+      "id": "class-jc4ya4zzo",
+      "name": "6-S"
+    },
+    {
+      "id": "class-ra96mes96",
+      "name": "7 İNG"
+    },
+    {
+      "id": "class-kskzwtefr",
+      "name": "CLASS-OUT-576900"
+    },
+    {
+      "id": "class-d9ed8k8md",
+      "name": "CLASS-OUT-592114"
+    },
+    {
+      "id": "class-d9ed8k8md",
+      "name": "CLASS-OUT-592114"
+    },
+    {
+      "id": "class-74vv8fo4o",
+      "name": "CLASS-IN-609493"
+    },
+    {
+      "id": "class-dhxh11qe1",
+      "name": "CLASS-OUT-609493"
+    },
+    {
+      "id": "class-l95ioqb3i",
+      "name": "CLASS-IN-709116"
+    },
+    {
+      "id": "class-xfspxkghx",
+      "name": "CLASS-OUT-709116"
+    },
+    {
+      "id": "class-w9bz1ckuu",
+      "name": "TEST-CLASS-384779"
+    },
+    {
+      "id": "class-v03qxo694",
+      "name": "TEST-CLASS-411402"
+    },
+    {
+      "id": "class-wxqp52pko",
+      "name": "DATE-CLASS-939468"
+    },
+    {
+      "id": "class-c0c4xqzl9",
+      "name": "9-X-TEST-004655"
+    },
+    {
+      "id": "class-17q837req",
+      "name": "TEST-CLASS-219664"
+    },
+    {
+      "id": "class-q25lwj63r",
+      "name": "DATE-CLASS-247231"
+    },
+    {
+      "id": "class-l5q4g3wqa",
+      "name": "CLASS-IN-569295"
+    },
+    {
+      "id": "class-w9ji5ua9f",
+      "name": "CLASS-OUT-569295"
+    }
+  ],
+  "users": [
+    {
+      "id": "admin-1",
+      "username": "admin",
+      "password": "$2a$10$dlUSLB7qkEkJoi1Q6UTlpOEbL4hiSMhteeaT0vemRCRRomGtgna0K",
+      "name": "Sistem Yöneticisi",
+      "branch": "Tüm Branşlar",
+      "role": "admin",
+      "classIds": []
+    },
+    {
+      "id": "teacher-dlpfu4lsr",
+      "username": "bilal",
+      "password": "$2a$10$IBUkY3QiWJURzbzFRHnwouM6jEFMBEPPDqHKMK.BliTvqaLCpungW",
+      "name": "BİLAL ALDANMAZ",
+      "branch": "Matematik",
+      "role": "teacher",
+      "classIds": [
+        "class-bb8e3z71l",
+        "class-wy29s345b",
+        "class-7oqeknbtj",
+        "class-lahp378fg",
+        "class-8w3oqd08l",
+        "class-hzfcst4c1"
+      ]
+    },
+    {
+      "id": "teacher-3opoqxekp",
+      "username": "teacher_test",
+      "password": "$2a$10$ODisDJLi56LFHOKRBlzGxeeuNtnvU55edph.LnMoBWyVRAYSbdlSO",
+      "name": "TEST TEACHER",
+      "branch": "Matematik",
+      "role": "teacher",
+      "classIds": [
+        "class-t12rjfgpb"
+      ]
+    },
+    {
+      "id": "teacher-o78jh9sws",
+      "username": "preview_teacher_576900",
+      "password": "$2a$10$yt637.qtqtaGMdWYWBbUQOWpBCZOroJ..dYfZRXgIJXVD75zPBJ62",
+      "name": "Teacher Preview",
+      "branch": "Matematik",
+      "role": "teacher",
+      "classIds": [
+        "class-t9msmva5i"
+      ]
+    },
+    {
+      "id": "teacher-8pdmvhbpu",
+      "username": "preview_teacher_592114",
+      "password": "$2a$10$Hbvmsk9K0eZClwx9V0LD0uGCRF8vf2U7aKAqaRu3YgpIEwJ3cRumy",
+      "name": "Teacher Preview",
+      "branch": "Matematik",
+      "role": "teacher",
+      "classIds": [
+        "class-0yqk14n1u"
+      ]
+    },
+    {
+      "id": "teacher-yat9eaak9",
+      "username": "preview_teacher_609493",
+      "password": "$2a$10$R5s8aWuecQRRzpP6sRs11.YDHzn1XW5htCbulBkcvaO24PH.Jc6NO",
+      "name": "Teacher Preview",
+      "branch": "Matematik",
+      "role": "teacher",
+      "classIds": [
+        "class-74vv8fo4o"
+      ]
+    },
+    {
+      "id": "teacher-efe4mezf8",
+      "username": "teacher_t_004655",
+      "password": "$2a$10$YIyTRO4RwZnq8GkjbyCW0uehEyrD6Vh2O1gCgirg4MHcF5fETxq3e",
+      "name": "TEST TEACHER",
+      "branch": "Matematik",
+      "role": "teacher",
+      "classIds": [
+        "class-c0c4xqzl9"
+      ]
+    },
+    {
+      "id": "teacher-bvvywku7w",
+      "username": "report_teacher_219664",
+      "password": "$2a$10$l351p2Z.149fM7zY33I.9epsV.L0ChpIYvIqVPqqKc0ax4osP1w7i",
+      "name": "Teacher Report",
+      "branch": "Türkçe",
+      "role": "teacher",
+      "classIds": [
+        "class-17q837req"
+      ]
+    },
+    {
+      "id": "teacher-8kbjjmwk8",
+      "username": "teacher_t_486141",
+      "password": "$2a$10$8ryZL9UM75Eyty3qWgl6MOVPbfKnpcOggv1VJCQfgsywhLfR1NCjW",
+      "name": "TEST TEACHER",
+      "branch": "Matematik",
+      "role": "teacher",
+      "classIds": [
+        "class-y0gxy2p90"
+      ]
+    }
+  ],
+  "students": [
+    {
+      "id": "student-7et4k623e",
+      "studentNo": 85198,
+      "name": "MUAZ YAHYA ADALI",
+      "classId": "class-bb8e3z71l",
+      "active": true
+    },
+    {
+      "id": "student-ngom868wz",
+      "studentNo": 85014,
+      "name": "ARAS AKBALIK",
+      "classId": "class-7oqeknbtj",
+      "active": true
+    },
+    {
+      "id": "student-wovfk965e",
+      "studentNo": 85012,
+      "name": "TALAT EMİR AKKURT",
+      "classId": "class-bb8e3z71l",
+      "active": true
+    },
+    {
+      "id": "student-yms1q8msk",
+      "studentNo": 85221,
+      "name": "AHSEN AKTAŞ",
+      "classId": "class-hzfcst4c1",
+      "active": true
+    },
+    {
+      "id": "student-6bs2l95yj",
+      "studentNo": 85181,
+      "name": "EMİR ALBAYRAK",
+      "classId": "class-wy29s345b",
+      "active": true
+    },
+    {
+      "id": "student-3wrc4hz28",
+      "studentNo": 85193,
+      "name": "MUHAMMED SAİD ALTUN",
+      "classId": "class-hzfcst4c1",
+      "active": true
+    },
+    {
+      "id": "student-vt5697490",
+      "studentNo": 85113,
+      "name": "EZGİ ANGIN",
+      "classId": "class-7oqeknbtj",
+      "active": true
+    },
+    {
+      "id": "student-jyg0ys0pj",
+      "studentNo": 85003,
+      "name": "EYMEN APAYDIN",
+      "classId": "class-lahp378fg",
+      "active": true
+    },
+    {
+      "id": "student-wu4t89ohr",
+      "studentNo": 85176,
+      "name": "NİSA ARSLAN",
+      "classId": "class-8w3oqd08l",
+      "active": true
+    },
+    {
+      "id": "student-3n3l6zlsx",
+      "studentNo": 85015,
+      "name": "BERRA ZEYNEP AYDIN",
+      "classId": "class-hzfcst4c1",
+      "active": true
+    },
+    {
+      "id": "student-bnh87vsc1",
+      "studentNo": 85060,
+      "name": "ASLI KEVSER AYDIN",
+      "classId": "class-1wnccdfp8",
+      "active": true
+    },
+    {
+      "id": "student-85as05kue",
+      "studentNo": 85084,
+      "name": "KAYRA AYDIN",
+      "classId": "class-7oqeknbtj",
+      "active": true
+    },
+    {
+      "id": "student-ktnbkws6r",
+      "studentNo": 85109,
+      "name": "YAHYA AYDINOĞLULLARI",
+      "classId": "class-8w3oqd08l",
+      "active": true
+    },
+    {
+      "id": "student-8l40otzi5",
+      "studentNo": 85030,
+      "name": "AZRA NUR AYGÜN",
+      "classId": "class-wxck441em",
+      "active": true
+    },
+    {
+      "id": "student-my6qyaa38",
+      "studentNo": 85146,
+      "name": "MELİSA BAĞIRICI",
+      "classId": "class-7oqeknbtj",
+      "active": true
+    },
+    {
+      "id": "student-6m5m78i0k",
+      "studentNo": 85133,
+      "name": "ECEM BALİ",
+      "classId": "class-w3z17pwf6",
+      "active": true
+    },
+    {
+      "id": "student-k3mdzr34i",
+      "studentNo": 85201,
+      "name": "FERHAT BAYGÜL",
+      "classId": "class-wxck441em",
+      "active": true
+    },
+    {
+      "id": "student-vf5yk05fe",
+      "studentNo": 85066,
+      "name": "HAMZA BAYRAKTAR",
+      "classId": "class-lahp378fg",
+      "active": true
+    },
+    {
+      "id": "student-8m3pdd2ha",
+      "studentNo": 85007,
+      "name": "DAMLA ADA BEL",
+      "classId": "class-1wnccdfp8",
+      "active": true
+    },
+    {
+      "id": "student-11ol27fnw",
+      "studentNo": 85235,
+      "name": "PELİN BUSE BEL",
+      "classId": "class-1wnccdfp8",
+      "active": true
+    },
+    {
+      "id": "student-isxiu7l7o",
+      "studentNo": 85033,
+      "name": "ZEYNEP ELA BİNGÖL",
+      "classId": "class-bb8e3z71l",
+      "active": true
+    },
+    {
+      "id": "student-j3msxqq43",
+      "studentNo": 85217,
+      "name": "ELA ÖYKÜ BORAN",
+      "classId": "class-1wnccdfp8",
+      "active": true
+    },
+    {
+      "id": "student-xrwl6u3z5",
+      "studentNo": 85079,
+      "name": "AYTUĞ BOZKURT",
+      "classId": "class-4vc6blvc1",
+      "active": true
+    },
+    {
+      "id": "student-bgobx7g1a",
+      "studentNo": 85093,
+      "name": "MİRAY BOZKURT",
+      "classId": "class-1wnccdfp8",
+      "active": true
+    },
+    {
+      "id": "student-iy81nmid6",
+      "studentNo": 85226,
+      "name": "ZEYNEP BULUT",
+      "classId": "class-8w3oqd08l",
+      "active": true
+    },
+    {
+      "id": "student-xornzdcrr",
+      "studentNo": 85029,
+      "name": "ERVA BÜLBÜL",
+      "classId": "class-wxck441em",
+      "active": true
+    },
+    {
+      "id": "student-8uzycul10",
+      "studentNo": 85038,
+      "name": "ABDULLAH HAMİT BÜLBÜL",
+      "classId": "class-8w3oqd08l",
+      "active": true
+    },
+    {
+      "id": "student-u7agbt97i",
+      "studentNo": 85126,
+      "name": "YUSUF EFE CAN",
+      "classId": "class-w3z17pwf6",
+      "active": true
+    },
+    {
+      "id": "student-nmb9zkly4",
+      "studentNo": 85052,
+      "name": "ELİF CENGİZ",
+      "classId": "class-lahp378fg",
+      "active": true
+    },
+    {
+      "id": "student-95fbs6mg6",
+      "studentNo": 85039,
+      "name": "YAĞIZ CEYLAN",
+      "classId": "class-n50973fn1",
+      "active": true
+    },
+    {
+      "id": "student-ahnw6fc6q",
+      "studentNo": 85218,
+      "name": "SEMİH CİN",
+      "classId": "class-8w3oqd08l",
+      "active": true
+    },
+    {
+      "id": "student-f7v9ps36a",
+      "studentNo": 85168,
+      "name": "HÜSEYİN SABRİ CİVAN",
+      "classId": "class-7oqeknbtj",
+      "active": true
+    },
+    {
+      "id": "student-6o8c5spjh",
+      "studentNo": 85045,
+      "name": "ELİF COŞKUN",
+      "classId": "class-wy29s345b",
+      "active": true
+    },
+    {
+      "id": "student-yloa6gjjc",
+      "studentNo": 85142,
+      "name": "AYŞE COŞKUN",
+      "classId": "class-w3z17pwf6",
+      "active": true
+    },
+    {
+      "id": "student-8cyr3tmvs",
+      "studentNo": 85172,
+      "name": "KAAN GÖKTÜRK COŞKUN",
+      "classId": "class-n50973fn1",
+      "active": true
+    },
+    {
+      "id": "student-1o63ik9g8",
+      "studentNo": 85082,
+      "name": "ELİFNAZ ÇAKIL",
+      "classId": "class-vw6ys8gw8",
+      "active": true
+    },
+    {
+      "id": "student-z7lmi3weh",
+      "studentNo": 85214,
+      "name": "EBRAR ÇAKMAK",
+      "classId": "class-wxck441em",
+      "active": true
+    },
+    {
+      "id": "student-i9k92d343",
+      "studentNo": 85166,
+      "name": "ÖMER ÇALIŞKAN",
+      "classId": "class-vw6ys8gw8",
+      "active": true
+    },
+    {
+      "id": "student-og64qjp3h",
+      "studentNo": 85208,
+      "name": "SİMAY ÇALIŞKAN",
+      "classId": "class-bb8e3z71l",
+      "active": true
+    },
+    {
+      "id": "student-5rw3y82wu",
+      "studentNo": 85135,
+      "name": "EMİR UTKU ÇEGEN",
+      "classId": "class-v19nxijjm",
+      "active": true
+    },
+    {
+      "id": "student-z4e7wfo14",
+      "studentNo": 85013,
+      "name": "SELÇUK EMRE ÇELİK",
+      "classId": "class-oifky5uav",
+      "active": true
+    },
+    {
+      "id": "student-04rv8vv0a",
+      "studentNo": 85053,
+      "name": "BERRA HACER ÇELİK",
+      "classId": "class-hzfcst4c1",
+      "active": true
+    },
+    {
+      "id": "student-gkyi3n0zm",
+      "studentNo": 85203,
+      "name": "ZEYNEP SU ÇELİK",
+      "classId": "class-1wnccdfp8",
+      "active": true
+    },
+    {
+      "id": "student-juh5rj4u4",
+      "studentNo": 85011,
+      "name": "İREMNUR ÇETİNTAŞ",
+      "classId": "class-wy29s345b",
+      "active": true
+    },
+    {
+      "id": "student-kt2y8ko21",
+      "studentNo": 85036,
+      "name": "EYMEN FURKAN ÇEVİK",
+      "classId": "class-n50973fn1",
+      "active": true
+    },
+    {
+      "id": "student-b6osa923p",
+      "studentNo": 85156,
+      "name": "ASYA ECE ÇİL",
+      "classId": "class-hzfcst4c1",
+      "active": true
+    },
+    {
+      "id": "student-a9hs0kac3",
+      "studentNo": 85034,
+      "name": "SELİN ÇOLAK",
+      "classId": "class-oifky5uav",
+      "active": true
+    },
+    {
+      "id": "student-xtcbteu26",
+      "studentNo": 85085,
+      "name": "BEGÜM ÇOLAK",
+      "classId": "class-v19nxijjm",
+      "active": true
+    },
+    {
+      "id": "student-azdd48x8g",
+      "studentNo": 85018,
+      "name": "ECEM DELİKAN",
+      "classId": "class-lahp378fg",
+      "active": true
+    },
+    {
+      "id": "student-zck7skaod",
+      "studentNo": 85124,
+      "name": "YUNUS ALİ DİNÇ",
+      "classId": "class-1wnccdfp8",
+      "active": true
+    },
+    {
+      "id": "student-k5vy4cmj2",
+      "studentNo": 85088,
+      "name": "TUĞÇE DOĞAN",
+      "classId": "class-v19nxijjm",
+      "active": true
+    },
+    {
+      "id": "student-yt6nw2byu",
+      "studentNo": 85074,
+      "name": "MUHAMMET EMİR DONAT",
+      "classId": "class-v19nxijjm",
+      "active": true
+    },
+    {
+      "id": "student-czkboiogb",
+      "studentNo": 85022,
+      "name": "ECRİN ELA DUMAN",
+      "classId": "class-bb8e3z71l",
+      "active": true
+    },
+    {
+      "id": "student-hf5np25gh",
+      "studentNo": 85143,
+      "name": "İSMAİL YİĞİT DUMAN",
+      "classId": "class-w3z17pwf6",
+      "active": true
+    },
+    {
+      "id": "student-csv9rft3w",
+      "studentNo": 85037,
+      "name": "CEYLİN AZRA DUR",
+      "classId": "class-hzfcst4c1",
+      "active": true
+    },
+    {
+      "id": "student-9kk8j9h4v",
+      "studentNo": 85110,
+      "name": "SÜMEYYE DURMUŞ",
+      "classId": "class-bb8e3z71l",
+      "active": true
+    },
+    {
+      "id": "student-jsl92bn6u",
+      "studentNo": 85185,
+      "name": "MEHMET ARİF EDİZ",
+      "classId": "class-jc4ya4zzo",
+      "active": true
+    },
+    {
+      "id": "student-ns1bfe82r",
+      "studentNo": 85186,
+      "name": "AHMET KEREM EDİZ",
+      "classId": "class-jc4ya4zzo",
+      "active": true
+    },
+    {
+      "id": "student-kzzdkuqmu",
+      "studentNo": 85100,
+      "name": "FATIMA ESLEM ELMACI",
+      "classId": "class-jc4ya4zzo",
+      "active": true
+    },
+    {
+      "id": "student-tyrt1ypud",
+      "studentNo": 85227,
+      "name": "METEHAN ELMACIOĞLU",
+      "classId": "class-vw6ys8gw8",
+      "active": true
+    },
+    {
+      "id": "student-5otl9x24g",
+      "studentNo": 85174,
+      "name": "MUHAMMED EMİR ERAYDIN",
+      "classId": "class-bb8e3z71l",
+      "active": true
+    },
+    {
+      "id": "student-hsor7pvwa",
+      "studentNo": 85092,
+      "name": "AYŞE ERDEM",
+      "classId": "class-bb8e3z71l",
+      "active": true
+    },
+    {
+      "id": "student-fewudl9g9",
+      "studentNo": 85151,
+      "name": "EMİR DENİZ ERDOĞAN",
+      "classId": "class-jc4ya4zzo",
+      "active": true
+    },
+    {
+      "id": "student-87iv0ahqd",
+      "studentNo": 85188,
+      "name": "AHMET DERVİŞ ERDOĞMUŞ",
+      "classId": "class-v19nxijjm",
+      "active": true
+    },
+    {
+      "id": "student-h2zis2qhj",
+      "studentNo": 85175,
+      "name": "ERVA ERGEN",
+      "classId": "class-wy29s345b",
+      "active": true
+    },
+    {
+      "id": "student-wsuk0h7i5",
+      "studentNo": 85170,
+      "name": "KADİR CAN ERİNÇ",
+      "classId": "class-wy29s345b",
+      "active": true
+    },
+    {
+      "id": "student-tm0yw6i0m",
+      "studentNo": 85165,
+      "name": "POYRAZ ERİŞEN",
+      "classId": "class-7oqeknbtj",
+      "active": true
+    },
+    {
+      "id": "student-ypz5aawfa",
+      "studentNo": 85094,
+      "name": "ELİF EYLÜL ERSOY",
+      "classId": "class-hzfcst4c1",
+      "active": true
+    },
+    {
+      "id": "student-md1haq5bm",
+      "studentNo": 85232,
+      "name": "NEHİR ERSOY",
+      "classId": "class-1wnccdfp8",
+      "active": true
+    },
+    {
+      "id": "student-xbdqh2a1p",
+      "studentNo": 85097,
+      "name": "BATUHAN ERTEKİN",
+      "classId": "class-bb8e3z71l",
+      "active": true
+    },
+    {
+      "id": "student-daczvau8t",
+      "studentNo": 85027,
+      "name": "BERRE ZEYNEP ERTİK",
+      "classId": "class-bb8e3z71l",
+      "active": true
+    },
+    {
+      "id": "student-2y072x8hg",
+      "studentNo": 85118,
+      "name": "BARAN EVLEK",
+      "classId": "class-hzfcst4c1",
+      "active": true
+    },
+    {
+      "id": "student-58vwl5oha",
+      "studentNo": 85072,
+      "name": "MUHAMMED KEREM FIRAT",
+      "classId": "class-4vc6blvc1",
+      "active": true
+    },
+    {
+      "id": "student-j47cpkbky",
+      "studentNo": 85161,
+      "name": "HATİCE ETKA GEDİK",
+      "classId": "class-wxck441em",
+      "active": true
+    },
+    {
+      "id": "student-krbufhv4u",
+      "studentNo": 85222,
+      "name": "YEKTA GEZGİN",
+      "classId": "class-bb8e3z71l",
+      "active": true
+    },
+    {
+      "id": "student-n99uszhq8",
+      "studentNo": 85223,
+      "name": "ZEHRA GEZGİN",
+      "classId": "class-v19nxijjm",
+      "active": true
+    },
+    {
+      "id": "student-d631v7olx",
+      "studentNo": 85010,
+      "name": "MELİH GİRAL",
+      "classId": "class-4vc6blvc1",
+      "active": true
+    },
+    {
+      "id": "student-xrvwwi0h5",
+      "studentNo": 85144,
+      "name": "KIVANÇ GÖK",
+      "classId": "class-v19nxijjm",
+      "active": true
+    },
+    {
+      "id": "student-ns83klbcs",
+      "studentNo": 85041,
+      "name": "SİRAC GÖNEÇ",
+      "classId": "class-8w3oqd08l",
+      "active": true
+    },
+    {
+      "id": "student-hrwx7mrkz",
+      "studentNo": 85204,
+      "name": "YAĞMUR MELİSA GÜL",
+      "classId": "class-w3z17pwf6",
+      "active": true
+    },
+    {
+      "id": "student-0zn6v4ukg",
+      "studentNo": 85026,
+      "name": "ALİ KAYRA GÜLER",
+      "classId": "class-lahp378fg",
+      "active": true
+    },
+    {
+      "id": "student-lfhsagky3",
+      "studentNo": 85163,
+      "name": "ALİHAN EMİR GÜLER",
+      "classId": "class-lahp378fg",
+      "active": true
+    },
+    {
+      "id": "student-5d0hvmk1y",
+      "studentNo": 85076,
+      "name": "AYŞE GÜL ECE GÜMÜŞEL",
+      "classId": "class-lahp378fg",
+      "active": true
+    },
+    {
+      "id": "student-rqssgx8kw",
+      "studentNo": 85095,
+      "name": "KAĞAN GÜN",
+      "classId": "class-lahp378fg",
+      "active": true
+    },
+    {
+      "id": "student-bcf5522q0",
+      "studentNo": 85064,
+      "name": "ZEYNEP GÜNAY",
+      "classId": "class-8w3oqd08l",
+      "active": true
+    },
+    {
+      "id": "student-g5mnrj4pk",
+      "studentNo": 85149,
+      "name": "MERYEM NURDAN GÜNER",
+      "classId": "class-hzfcst4c1",
+      "active": true
+    },
+    {
+      "id": "student-6cjlhcfhl",
+      "studentNo": 85122,
+      "name": "NİSA NUR GÜNEŞ",
+      "classId": "class-v19nxijjm",
+      "active": true
+    },
+    {
+      "id": "student-w3rxkrrqt",
+      "studentNo": 85190,
+      "name": "SARE GÜNGÖR",
+      "classId": "class-jc4ya4zzo",
+      "active": true
+    },
+    {
+      "id": "student-bpoo3y8q6",
+      "studentNo": 85104,
+      "name": "RECAİ ENES HACIEYÜPOĞLU",
+      "classId": "class-n50973fn1",
+      "active": true
+    },
+    {
+      "id": "student-v429ple5v",
+      "studentNo": 85016,
+      "name": "TAHA EYMEN HACIOĞLU",
+      "classId": "class-n50973fn1",
+      "active": true
+    },
+    {
+      "id": "student-htl8m9her",
+      "studentNo": 85154,
+      "name": "YUSUF ARDA HASBAŞ",
+      "classId": "class-1wnccdfp8",
+      "active": true
+    },
+    {
+      "id": "student-f9nd76haj",
+      "studentNo": 85099,
+      "name": "BATU HINÇ",
+      "classId": "class-oifky5uav",
+      "active": true
+    },
+    {
+      "id": "student-190gtfpxx",
+      "studentNo": 85115,
+      "name": "AHMET EMİR İBİL",
+      "classId": "class-4vc6blvc1",
+      "active": true
+    },
+    {
+      "id": "student-k7d7sphs8",
+      "studentNo": 85212,
+      "name": "YAVUZ SELİM İPEKLİ",
+      "classId": "class-lahp378fg",
+      "active": true
+    },
+    {
+      "id": "student-98o9mui3v",
+      "studentNo": 85062,
+      "name": "MUSTAFA SALİH İSKENDER",
+      "classId": "class-4vc6blvc1",
+      "active": true
+    },
+    {
+      "id": "student-d6wjp2ds5",
+      "studentNo": 85134,
+      "name": "EMİR İSPİROĞLU",
+      "classId": "class-4vc6blvc1",
+      "active": true
+    },
+    {
+      "id": "student-si82mn40g",
+      "studentNo": 85157,
+      "name": "TİMUÇİN İŞBAŞI",
+      "classId": "class-lahp378fg",
+      "active": true
+    },
+    {
+      "id": "student-6r3bgrejw",
+      "studentNo": 85006,
+      "name": "ESMA SARE KABA",
+      "classId": "class-lahp378fg",
+      "active": true
+    },
+    {
+      "id": "student-s3wwshxb4",
+      "studentNo": 85069,
+      "name": "ZEHRA KADIOĞLU",
+      "classId": "class-8w3oqd08l",
+      "active": true
+    },
+    {
+      "id": "student-lalo1erai",
+      "studentNo": 85083,
+      "name": "ECRİN DURU KARABULUT",
+      "classId": "class-lahp378fg",
+      "active": true
+    },
+    {
+      "id": "student-tskoijn76",
+      "studentNo": 85137,
+      "name": "NİSA KARACA",
+      "classId": "class-bb8e3z71l",
+      "active": true
+    },
+    {
+      "id": "student-gknuspd6h",
+      "studentNo": 85123,
+      "name": "EFE KARADAĞ",
+      "classId": "class-hzfcst4c1",
+      "active": true
+    },
+    {
+      "id": "student-fwv4jglki",
+      "studentNo": 85138,
+      "name": "ARAS KARAKAŞ",
+      "classId": "class-hzfcst4c1",
+      "active": true
+    },
+    {
+      "id": "student-1kl54lfiw",
+      "studentNo": 85031,
+      "name": "DEFNE KARAMAN",
+      "classId": "class-4vc6blvc1",
+      "active": true
+    },
+    {
+      "id": "student-5386av664",
+      "studentNo": 85207,
+      "name": "SEVDE KARASAKAL",
+      "classId": "class-oifky5uav",
+      "active": true
+    },
+    {
+      "id": "student-hz5w8o18n",
+      "studentNo": 85102,
+      "name": "SAMET İLHAN KARTAL",
+      "classId": "class-vw6ys8gw8",
+      "active": true
+    },
+    {
+      "id": "student-0h8jv61a6",
+      "studentNo": 85096,
+      "name": "ELVİN KAVAKOĞLU",
+      "classId": "class-lahp378fg",
+      "active": true
+    },
+    {
+      "id": "student-q96iyb4bw",
+      "studentNo": 85005,
+      "name": "ÖMER FARUK KAYA",
+      "classId": "class-hzfcst4c1",
+      "active": true
+    },
+    {
+      "id": "student-eqpnx650h",
+      "studentNo": 85075,
+      "name": "ZÜMRA KESKİN",
+      "classId": "class-v19nxijjm",
+      "active": true
+    },
+    {
+      "id": "student-wt2k1ugm3",
+      "studentNo": 85028,
+      "name": "AHMET KAYRA KILIÇ",
+      "classId": "class-bb8e3z71l",
+      "active": true
+    },
+    {
+      "id": "student-blk4q1vpl",
+      "studentNo": 85042,
+      "name": "YUSUF EYMEN KINALI",
+      "classId": "class-1wnccdfp8",
+      "active": true
+    },
+    {
+      "id": "student-ru6gm2r80",
+      "studentNo": 85046,
+      "name": "BEREN KIRMACI",
+      "classId": "class-7oqeknbtj",
+      "active": true
+    },
+    {
+      "id": "student-okswl3v7u",
+      "studentNo": 85063,
+      "name": "ZÜMRA KOÇ",
+      "classId": "class-8w3oqd08l",
+      "active": true
+    },
+    {
+      "id": "student-gs26uafc4",
+      "studentNo": 85167,
+      "name": "ASYA KOTAOĞLU",
+      "classId": "class-wxck441em",
+      "active": true
+    },
+    {
+      "id": "student-2y63rgis6",
+      "studentNo": 85040,
+      "name": "ZEYNEP KÖK",
+      "classId": "class-8w3oqd08l",
+      "active": true
+    },
+    {
+      "id": "student-fnz7sjqe1",
+      "studentNo": 85228,
+      "name": "FATİH SELİM KÖNEÇOĞLU",
+      "classId": "class-v19nxijjm",
+      "active": true
+    },
+    {
+      "id": "student-gm3mve046",
+      "studentNo": 85054,
+      "name": "EDİZ KÖSE",
+      "classId": "class-oifky5uav",
+      "active": true
+    },
+    {
+      "id": "student-o4goeanx7",
+      "studentNo": 85209,
+      "name": "HANDAN BERRA KURBAN",
+      "classId": "class-lahp378fg",
+      "active": true
+    },
+    {
+      "id": "student-4frr3czh1",
+      "studentNo": 85210,
+      "name": "CANAN BÜŞRA KURBAN",
+      "classId": "class-vw6ys8gw8",
+      "active": true
+    },
+    {
+      "id": "student-mu3cozvom",
+      "studentNo": 85224,
+      "name": "HAFSANUR KURTULUŞ",
+      "classId": "class-8w3oqd08l",
+      "active": true
+    },
+    {
+      "id": "student-s7acrlbry",
+      "studentNo": 85199,
+      "name": "CEYLİN ELA KUTOĞLU",
+      "classId": "class-w3z17pwf6",
+      "active": true
+    },
+    {
+      "id": "student-4a52lpsgi",
+      "studentNo": 85219,
+      "name": "SERRA KÜFKURAN",
+      "classId": "class-w3z17pwf6",
+      "active": true
+    },
+    {
+      "id": "student-74ar7u13m",
+      "studentNo": 85145,
+      "name": "BELİNAY MAHMUTOĞLU",
+      "classId": "class-lahp378fg",
+      "active": true
+    },
+    {
+      "id": "student-7fmvmnhda",
+      "studentNo": 85225,
+      "name": "ÇINAR MATUR",
+      "classId": "class-8w3oqd08l",
+      "active": true
+    },
+    {
+      "id": "student-nwnx6xgyg",
+      "studentNo": 85139,
+      "name": "EMİR MEHMETOĞLU",
+      "classId": "class-wxck441em",
+      "active": true
+    },
+    {
+      "id": "student-ipmzp57qf",
+      "studentNo": 85001,
+      "name": "ZÜMRA AYDAN MENTEŞE",
+      "classId": "class-7oqeknbtj",
+      "active": true
+    },
+    {
+      "id": "student-ppomma3na",
+      "studentNo": 85105,
+      "name": "MEHMET SALİH MERTKANLI",
+      "classId": "class-vw6ys8gw8",
+      "active": true
+    },
+    {
+      "id": "student-htz0g6to3",
+      "studentNo": 85125,
+      "name": "ŞİFA SULTAN MIZRAK",
+      "classId": "class-oifky5uav",
+      "active": true
+    },
+    {
+      "id": "student-4loek3086",
+      "studentNo": 85121,
+      "name": "JUDE MOHAMMED OMAR",
+      "classId": "class-w3z17pwf6",
+      "active": true
+    },
+    {
+      "id": "student-rhputl7go",
+      "studentNo": 85211,
+      "name": "ÖMER BERA NUR",
+      "classId": "class-7oqeknbtj",
+      "active": true
+    },
+    {
+      "id": "student-fj46sbw9r",
+      "studentNo": 85183,
+      "name": "SÜMEYYE ECRİN OĞUZCAN",
+      "classId": "class-bb8e3z71l",
+      "active": true
+    },
+    {
+      "id": "student-i5hk20jwg",
+      "studentNo": 85065,
+      "name": "ARAS OK",
+      "classId": "class-n50973fn1",
+      "active": true
+    },
+    {
+      "id": "student-s8audxz8f",
+      "studentNo": 85055,
+      "name": "AYDANUR OLGUN",
+      "classId": "class-8w3oqd08l",
+      "active": true
+    },
+    {
+      "id": "student-ehify1xiz",
+      "studentNo": 85009,
+      "name": "RECEP ORUÇOĞLU",
+      "classId": "class-n50973fn1",
+      "active": true
+    },
+    {
+      "id": "student-j2pbt048q",
+      "studentNo": 85019,
+      "name": "AYŞE ZÜMRA ÖKÜZCÜ",
+      "classId": "class-lahp378fg",
+      "active": true
+    },
+    {
+      "id": "student-7n4zy2bgu",
+      "studentNo": 85130,
+      "name": "ZEYNEP ÖNEM",
+      "classId": "class-v19nxijjm",
+      "active": true
+    },
+    {
+      "id": "student-s99lnu899",
+      "studentNo": 85202,
+      "name": "EYMEN ÖNER",
+      "classId": "class-oifky5uav",
+      "active": true
+    },
+    {
+      "id": "student-e904e5yoe",
+      "studentNo": 85008,
+      "name": "İDRİS BEHİÇ ÖZ",
+      "classId": "class-n50973fn1",
+      "active": true
+    },
+    {
+      "id": "student-lvz71urr8",
+      "studentNo": 85067,
+      "name": "ZEYNEP SU ÖZAYDIN",
+      "classId": "class-bb8e3z71l",
+      "active": true
+    },
+    {
+      "id": "student-c9nh3w1s4",
+      "studentNo": 85051,
+      "name": "ECE GÜNEŞ ÖZCAN",
+      "classId": "class-vw6ys8gw8",
+      "active": true
+    },
+    {
+      "id": "student-6a8cgq63w",
+      "studentNo": 85140,
+      "name": "SAYRA LAL ÖZCAN",
+      "classId": "class-4vc6blvc1",
+      "active": true
+    },
+    {
+      "id": "student-ywunvn055",
+      "studentNo": 85061,
+      "name": "ŞEMS ALİ ÖZÇELİK",
+      "classId": "class-n50973fn1",
+      "active": true
+    },
+    {
+      "id": "student-4wtp9g5ax",
+      "studentNo": 85078,
+      "name": "YUSUF HAMZA ÖZDEMİR",
+      "classId": "class-hzfcst4c1",
+      "active": true
+    },
+    {
+      "id": "student-v7xooxcnj",
+      "studentNo": 85107,
+      "name": "ZEYNEP ÖZDEMİR",
+      "classId": "class-hzfcst4c1",
+      "active": true
+    },
+    {
+      "id": "student-u6kbhtoq6",
+      "studentNo": 85158,
+      "name": "MELİH BAHADIR ÖZDEMİR",
+      "classId": "class-hzfcst4c1",
+      "active": true
+    },
+    {
+      "id": "student-mdr3icywi",
+      "studentNo": 85112,
+      "name": "YUNUS EMRE ÖZKAN",
+      "classId": "class-jc4ya4zzo",
+      "active": true
+    },
+    {
+      "id": "student-evi36myvk",
+      "studentNo": 85230,
+      "name": "ELİF SU ÖZKAN",
+      "classId": "class-hzfcst4c1",
+      "active": true
+    },
+    {
+      "id": "student-1ox48srxg",
+      "studentNo": 85192,
+      "name": "KÜBRANUR ÖZMEN",
+      "classId": "class-wy29s345b",
+      "active": true
+    },
+    {
+      "id": "student-l3qkx6h2k",
+      "studentNo": 85048,
+      "name": "AYBÜKE ÖZSAY",
+      "classId": "class-1wnccdfp8",
+      "active": true
+    },
+    {
+      "id": "student-277chpfos",
+      "studentNo": 85087,
+      "name": "EYMEN ÖZTÜRK",
+      "classId": "class-oifky5uav",
+      "active": true
+    },
+    {
+      "id": "student-n6nja9haw",
+      "studentNo": 85103,
+      "name": "CEYLİN MİNA ÖZTÜRK",
+      "classId": "class-1wnccdfp8",
+      "active": true
+    },
+    {
+      "id": "student-da1uderm6",
+      "studentNo": 85200,
+      "name": "BETÜL ERVA ÖZTÜRK",
+      "classId": "class-wxck441em",
+      "active": true
+    },
+    {
+      "id": "student-f1tdaumf1",
+      "studentNo": 85187,
+      "name": "ZİŞAN SARYA PALA",
+      "classId": "class-v19nxijjm",
+      "active": true
+    },
+    {
+      "id": "student-aknmwy4vr",
+      "studentNo": 85004,
+      "name": "BERRA POLAT",
+      "classId": "class-v19nxijjm",
+      "active": true
+    },
+    {
+      "id": "student-n0ul208t0",
+      "studentNo": 85068,
+      "name": "MİNE SU REİS",
+      "classId": "class-v19nxijjm",
+      "active": true
+    },
+    {
+      "id": "student-3w1qwi48f",
+      "studentNo": 85234,
+      "name": "EYLÜL SAÇAKLI",
+      "classId": "class-w3z17pwf6",
+      "active": true
+    },
+    {
+      "id": "student-8vj8kt3ty",
+      "studentNo": 85162,
+      "name": "NİHAT İDRİS SAĞLAM",
+      "classId": "class-v19nxijjm",
+      "active": true
+    },
+    {
+      "id": "student-sxbd3p4xi",
+      "studentNo": 85220,
+      "name": "BERRAK SAKKAOĞLU",
+      "classId": "class-8w3oqd08l",
+      "active": true
+    },
+    {
+      "id": "student-69clz2xpv",
+      "studentNo": 85091,
+      "name": "KEREM SARI",
+      "classId": "class-7oqeknbtj",
+      "active": true
+    },
+    {
+      "id": "student-hnx9vct0j",
+      "studentNo": 85116,
+      "name": "FATMA SARI",
+      "classId": "class-oifky5uav",
+      "active": true
+    },
+    {
+      "id": "student-n3gicw6w4",
+      "studentNo": 85141,
+      "name": "HAKAN SAVTEKİN",
+      "classId": "class-wy29s345b",
+      "active": true
+    },
+    {
+      "id": "student-b5p1357ca",
+      "studentNo": 85106,
+      "name": "AYŞE SEZER",
+      "classId": "class-v19nxijjm",
+      "active": true
+    },
+    {
+      "id": "student-7c8zltken",
+      "studentNo": 85236,
+      "name": "YİĞİT ANIL SEZER",
+      "classId": "class-ra96mes96",
+      "active": true
+    },
+    {
+      "id": "student-1y70swlbh",
+      "studentNo": 85090,
+      "name": "BEKİRALP SEZİCİ",
+      "classId": "class-8w3oqd08l",
+      "active": true
+    },
+    {
+      "id": "student-a68dtl4hb",
+      "studentNo": 85160,
+      "name": "AYDIN SİNCER",
+      "classId": "class-4vc6blvc1",
+      "active": true
+    },
+    {
+      "id": "student-gcp65nqo3",
+      "studentNo": 85237,
+      "name": "ALİYE ZÜMRA SOĞUKÇELİK",
+      "classId": "class-wy29s345b",
+      "active": true
+    },
+    {
+      "id": "student-859oomwax",
+      "studentNo": 85148,
+      "name": "ZEYNEP ECEM SÖNMEZ",
+      "classId": "class-wxck441em",
+      "active": true
+    },
+    {
+      "id": "student-8qhnznm0r",
+      "studentNo": 85002,
+      "name": "ZEYNEP ZÜLAL ŞAHİN",
+      "classId": "class-v19nxijjm",
+      "active": true
+    },
+    {
+      "id": "student-oxo2ouz2t",
+      "studentNo": 85071,
+      "name": "ALİ EREN ŞAHİN",
+      "classId": "class-lahp378fg",
+      "active": true
+    },
+    {
+      "id": "student-4uaep5eqh",
+      "studentNo": 85119,
+      "name": "FATMA ŞAHİN",
+      "classId": "class-hzfcst4c1",
+      "active": true
+    },
+    {
+      "id": "student-2nvbfqnof",
+      "studentNo": 85173,
+      "name": "AFRANUR ŞAHİN",
+      "classId": "class-hzfcst4c1",
+      "active": true
+    },
+    {
+      "id": "student-be3ex8t88",
+      "studentNo": 85215,
+      "name": "DURU ŞEN",
+      "classId": "class-jc4ya4zzo",
+      "active": true
+    },
+    {
+      "id": "student-8edpoxvoa",
+      "studentNo": 85233,
+      "name": "MUHAMMED EMİN ŞEN",
+      "classId": "class-wy29s345b",
+      "active": true
+    },
+    {
+      "id": "student-k3qmw0si7",
+      "studentNo": 85070,
+      "name": "ÖMER ŞENEL",
+      "classId": "class-vw6ys8gw8",
+      "active": true
+    },
+    {
+      "id": "student-y43p7inxv",
+      "studentNo": 85178,
+      "name": "ALİ İSHAK ŞENSOY",
+      "classId": "class-8w3oqd08l",
+      "active": true
+    },
+    {
+      "id": "student-5kmoql5jq",
+      "studentNo": 85035,
+      "name": "EYÜP ENSAR ŞENTÜRK",
+      "classId": "class-7oqeknbtj",
+      "active": true
+    },
+    {
+      "id": "student-df6plsqoz",
+      "studentNo": 85128,
+      "name": "YAVUZ SAMET ŞİMŞEK",
+      "classId": "class-v19nxijjm",
+      "active": true
+    },
+    {
+      "id": "student-25smjkpwk",
+      "studentNo": 85117,
+      "name": "METEHAN TAŞIMAZ",
+      "classId": "class-7oqeknbtj",
+      "active": true
+    },
+    {
+      "id": "student-2e5663p9n",
+      "studentNo": 85213,
+      "name": "NİLÜFER NİSA TAŞKIRAN",
+      "classId": "class-wy29s345b",
+      "active": true
+    },
+    {
+      "id": "student-f8cpmrleq",
+      "studentNo": 85098,
+      "name": "BADE MERVE TAVŞAN",
+      "classId": "class-4vc6blvc1",
+      "active": true
+    },
+    {
+      "id": "student-lsnzjsuc8",
+      "studentNo": 85056,
+      "name": "NEŞE TEKİN",
+      "classId": "class-8w3oqd08l",
+      "active": true
+    },
+    {
+      "id": "student-b5uwcpaco",
+      "studentNo": 85073,
+      "name": "BEGÜM SENA TEKİN",
+      "classId": "class-wy29s345b",
+      "active": true
+    },
+    {
+      "id": "student-y37phggum",
+      "studentNo": 85180,
+      "name": "BARAN DENİZ TEKİN",
+      "classId": "class-w3z17pwf6",
+      "active": true
+    },
+    {
+      "id": "student-5ndmef1fr",
+      "studentNo": 85164,
+      "name": "YUSUF TEMİZ",
+      "classId": "class-n50973fn1",
+      "active": true
+    },
+    {
+      "id": "student-mof22swux",
+      "studentNo": 85194,
+      "name": "MERYEM TOPALOĞLU",
+      "classId": "class-jc4ya4zzo",
+      "active": true
+    },
+    {
+      "id": "student-rsjzst3ud",
+      "studentNo": 85111,
+      "name": "BERAT TOPÇU",
+      "classId": "class-1wnccdfp8",
+      "active": true
+    },
+    {
+      "id": "student-mn3iely0z",
+      "studentNo": 85195,
+      "name": "BEYZANUR TOYGAR",
+      "classId": "class-bb8e3z71l",
+      "active": true
+    },
+    {
+      "id": "student-u396rhgnk",
+      "studentNo": 85196,
+      "name": "HAVVA NUR TOYGAR",
+      "classId": "class-jc4ya4zzo",
+      "active": true
+    },
+    {
+      "id": "student-w8cqfoxi8",
+      "studentNo": 85017,
+      "name": "MİRAY TUFAN",
+      "classId": "class-v19nxijjm",
+      "active": true
+    },
+    {
+      "id": "student-b9m3z1j0x",
+      "studentNo": 85114,
+      "name": "RABİA SERRA TUNCER",
+      "classId": "class-bb8e3z71l",
+      "active": true
+    },
+    {
+      "id": "student-8u62zhsne",
+      "studentNo": 85108,
+      "name": "ZEYNEP TÜRKER",
+      "classId": "class-4vc6blvc1",
+      "active": true
+    },
+    {
+      "id": "student-155bfdlox",
+      "studentNo": 85177,
+      "name": "AHMET EREN UÇAR",
+      "classId": "class-ra96mes96",
+      "active": true
+    },
+    {
+      "id": "student-y2nbs2p1t",
+      "studentNo": 85081,
+      "name": "ALİ YUSUF ULUÇ",
+      "classId": "class-lahp378fg",
+      "active": true
+    },
+    {
+      "id": "student-l2bjcg65o",
+      "studentNo": 85047,
+      "name": "EBRAR DERİN ULUS",
+      "classId": "class-wxck441em",
+      "active": true
+    },
+    {
+      "id": "student-8wkvgx6ot",
+      "studentNo": 85127,
+      "name": "MERYEM ZÜLAL URUK",
+      "classId": "class-7oqeknbtj",
+      "active": true
+    },
+    {
+      "id": "student-0uj3k8lrp",
+      "studentNo": 85152,
+      "name": "AFFAN BERK USTA",
+      "classId": "class-oifky5uav",
+      "active": true
+    },
+    {
+      "id": "student-3muzwppr6",
+      "studentNo": 85077,
+      "name": "ALİ USUK",
+      "classId": "class-oifky5uav",
+      "active": true
+    },
+    {
+      "id": "student-3s34ixsm8",
+      "studentNo": 85025,
+      "name": "YAVUZ SELİM UTKUCU",
+      "classId": "class-vw6ys8gw8",
+      "active": true
+    },
+    {
+      "id": "student-502c14p93",
+      "studentNo": 85043,
+      "name": "RÜZGAR HİLMİ UYGUN",
+      "classId": "class-w3z17pwf6",
+      "active": true
+    },
+    {
+      "id": "student-k6w9v949z",
+      "studentNo": 85050,
+      "name": "EYLÜL İNCİ UZUN",
+      "classId": "class-vw6ys8gw8",
+      "active": true
+    },
+    {
+      "id": "student-ld1jktwwn",
+      "studentNo": 85101,
+      "name": "BERAT EFE VATAN",
+      "classId": "class-1wnccdfp8",
+      "active": true
+    },
+    {
+      "id": "student-vie4yupkv",
+      "studentNo": 85023,
+      "name": "TUĞSEM YAĞIZ",
+      "classId": "class-hzfcst4c1",
+      "active": true
+    },
+    {
+      "id": "student-hfyrivvst",
+      "studentNo": 85179,
+      "name": "ELİF SÜMEYYE YAĞMUR",
+      "classId": "class-8w3oqd08l",
+      "active": true
+    },
+    {
+      "id": "student-57iafhtor",
+      "studentNo": 85229,
+      "name": "KERİM YATÇI",
+      "classId": "class-wy29s345b",
+      "active": true
+    },
+    {
+      "id": "student-bowsgr024",
+      "studentNo": 85044,
+      "name": "ARMİN YAVAŞOĞLU",
+      "classId": "class-wxck441em",
+      "active": true
+    },
+    {
+      "id": "student-89ersjnxp",
+      "studentNo": 85058,
+      "name": "SÜMEYYE RÜMEYSA YAVUZ",
+      "classId": "class-wxck441em",
+      "active": true
+    },
+    {
+      "id": "student-mnoeuu2pj",
+      "studentNo": 85197,
+      "name": "YUSUF TAHA YAVUZ",
+      "classId": "class-wy29s345b",
+      "active": true
+    },
+    {
+      "id": "student-efoz8ynfz",
+      "studentNo": 85021,
+      "name": "YUNUS EMRE YAZAR",
+      "classId": "class-wxck441em",
+      "active": true
+    },
+    {
+      "id": "student-ljcd7re3s",
+      "studentNo": 85057,
+      "name": "KEREM YERTÜRK",
+      "classId": "class-vw6ys8gw8",
+      "active": true
+    },
+    {
+      "id": "student-ex5upao3q",
+      "studentNo": 85049,
+      "name": "YUSUF BERAT YILDIZ",
+      "classId": "class-8w3oqd08l",
+      "active": true
+    },
+    {
+      "id": "student-3acvs9y3a",
+      "studentNo": 85129,
+      "name": "ELİF MİRA YILDIZ",
+      "classId": "class-7oqeknbtj",
+      "active": true
+    },
+    {
+      "id": "student-oi8kyhhyz",
+      "studentNo": 85231,
+      "name": "SARE NUR YILDIZ",
+      "classId": "class-w3z17pwf6",
+      "active": true
+    },
+    {
+      "id": "student-60bbwppvf",
+      "studentNo": 85131,
+      "name": "FEYZA YILMAZ",
+      "classId": "class-w3z17pwf6",
+      "active": true
+    },
+    {
+      "id": "student-7l2c326g7",
+      "studentNo": 85159,
+      "name": "AHMET YILMAZ",
+      "classId": "class-4vc6blvc1",
+      "active": true
+    },
+    {
+      "id": "student-f5bc6z4dl",
+      "studentNo": 85020,
+      "name": "MEHMET EFE YİĞİT",
+      "classId": "class-v19nxijjm",
+      "active": true
+    },
+    {
+      "id": "student-xv18mt60t",
+      "studentNo": 85155,
+      "name": "CEYLİN YİĞİT",
+      "classId": "class-wxck441em",
+      "active": true
+    },
+    {
+      "id": "student-eol6n4vyv",
+      "studentNo": 85059,
+      "name": "AHMET BAHA YURTGAN",
+      "classId": "class-vw6ys8gw8",
+      "active": true
+    },
+    {
+      "id": "student-81iqq5vdn",
+      "studentNo": 85032,
+      "name": "AHMET SEYİT YÜKSEL",
+      "classId": "class-oifky5uav",
+      "active": true
+    },
+    {
+      "id": "student-myfnm22w7",
+      "studentNo": 85024,
+      "name": "BERK YÜREK",
+      "classId": "class-oifky5uav",
+      "active": true
+    },
+    {
+      "id": "student-d8kb5s6u9",
+      "studentNo": 85132,
+      "name": "YUSUF ARAS YÜREKLİ",
+      "classId": "class-hzfcst4c1",
+      "active": true
+    },
+    {
+      "id": "student-c4bn4bkqe",
+      "studentNo": 85150,
+      "name": "ÖMER ERHAN ZAFRAK",
+      "classId": "class-4vc6blvc1",
+      "active": true
+    },
+    {
+      "id": "student-40u1ih4ya",
+      "studentNo": 99991,
+      "name": "TEST STUDENT",
+      "classId": "class-t12rjfgpb",
+      "active": true
+    },
+    {
+      "id": "student-zga9nflzf",
+      "studentNo": 83534,
+      "name": "TEST STUDENT",
+      "classId": "class-e34ecg876",
+      "active": true
+    },
+    {
+      "id": "student-3w0p50l54",
+      "studentNo": 69593,
+      "name": "Student In Scope",
+      "classId": "class-t9msmva5i",
+      "active": true
+    },
+    {
+      "id": "student-dr0zs0ys6",
+      "studentNo": 53850,
+      "name": "Student Out Scope",
+      "classId": "class-kskzwtefr",
+      "active": true
+    },
+    {
+      "id": "student-5cuqtlttj",
+      "studentNo": 40798,
+      "name": "Student Out Scope",
+      "classId": "class-d9ed8k8md",
+      "active": true
+    },
+    {
+      "id": "student-bcwo0gxm5",
+      "studentNo": 65811,
+      "name": "Student Out Scope",
+      "classId": "class-dhxh11qe1",
+      "active": true
+    },
+    {
+      "id": "student-3md4u2rxb",
+      "studentNo": 92024,
+      "name": "Student In Scope",
+      "classId": "class-l95ioqb3i",
+      "active": true
+    },
+    {
+      "id": "student-e951l26h4",
+      "studentNo": 45325,
+      "name": "Student Out Scope",
+      "classId": "class-xfspxkghx",
+      "active": true
+    },
+    {
+      "id": "student-98ky2x5ek",
+      "studentNo": 89057,
+      "name": "Student Report 384779",
+      "classId": "class-w9bz1ckuu",
+      "active": true
+    },
+    {
+      "id": "student-n01s15igi",
+      "studentNo": 63903,
+      "name": "Student Report 411402",
+      "classId": "class-v03qxo694",
+      "active": true
+    },
+    {
+      "id": "student-q9cxm9uim",
+      "studentNo": 16119,
+      "name": "TEST STUDENT",
+      "classId": "class-q6swfljgl",
+      "active": true
+    },
+    {
+      "id": "student-bkefveijn",
+      "studentNo": 15942,
+      "name": "Student Date 939468",
+      "classId": "class-wxqp52pko",
+      "active": true
+    },
+    {
+      "id": "student-8j6pdk9u4",
+      "studentNo": 41377,
+      "name": "TEST STUDENT",
+      "classId": "class-c0c4xqzl9",
+      "active": true
+    },
+    {
+      "id": "student-55fpw4hcd",
+      "studentNo": 13004,
+      "name": "Student Report 219664",
+      "classId": "class-17q837req",
+      "active": true
+    },
+    {
+      "id": "student-khmgaw96d",
+      "studentNo": 45151,
+      "name": "Student Date 247231",
+      "classId": "class-q25lwj63r",
+      "active": true
+    },
+    {
+      "id": "student-w745qlfvd",
+      "studentNo": 10319,
+      "name": "Student Out Scope",
+      "classId": "class-w9ji5ua9f",
+      "active": true
+    },
+    {
+      "id": "student-meg6aqjyv",
+      "studentNo": 17834,
+      "name": "TEST STUDENT",
+      "classId": "class-y0gxy2p90",
+      "active": true
+    }
+  ],
+  "logs": [
+    {
+      "id": "log-py86mcf5w",
+      "studentId": "student-ngom868wz",
+      "teacherId": "admin-1",
+      "branch": "Din Kültürü ve Ahlak Bilgisi",
+      "date": "2026-05-19T21:00:00.000Z",
+      "solved": 2,
+      "correct": 0,
+      "incorrect": 0,
+      "net": 0
+    },
+    {
+      "id": "log-vzr8lo7wq",
+      "studentId": "student-7et4k623e",
+      "teacherId": "teacher-dlpfu4lsr",
+      "branch": "Matematik",
+      "date": "2026-05-19T21:00:00.000Z",
+      "solved": 3,
+      "correct": 0,
+      "incorrect": 0,
+      "net": 0
+    },
+    {
+      "id": "log-xuu93qzvd",
+      "studentId": "student-isxiu7l7o",
+      "teacherId": "teacher-dlpfu4lsr",
+      "branch": "Matematik",
+      "date": "2026-05-19T21:00:00.000Z",
+      "solved": 2,
+      "correct": 0,
+      "incorrect": 0,
+      "net": 0
+    },
+    {
+      "id": "log-lfnov2rzq",
+      "studentId": "student-wt2k1ugm3",
+      "teacherId": "teacher-dlpfu4lsr",
+      "branch": "Matematik",
+      "date": "2026-05-19T21:00:00.000Z",
+      "solved": 6,
+      "correct": 0,
+      "incorrect": 0,
+      "net": 0
+    },
+    {
+      "id": "log-fhcw1rhnn",
+      "studentId": "student-ngom868wz",
+      "teacherId": "teacher-dlpfu4lsr",
+      "branch": "Matematik",
+      "date": "2026-05-19T21:00:00.000Z",
+      "solved": 17,
+      "correct": 0,
+      "incorrect": 0,
+      "net": 0
+    },
+    {
+      "id": "log-i9d6vennc",
+      "studentId": "student-wt2k1ugm3",
+      "teacherId": "teacher-dlpfu4lsr",
+      "branch": "Matematik",
+      "date": "2026-05-20T21:00:00.000Z",
+      "solved": 15,
+      "correct": 0,
+      "incorrect": 0,
+      "net": 0
+    },
+    {
+      "id": "log-0o1lprwn1",
+      "studentId": "student-ns1bfe82r",
+      "teacherId": "admin-1",
+      "branch": "Türkçe",
+      "date": "2026-05-20T21:00:00.000Z",
+      "solved": 4,
+      "correct": 0,
+      "incorrect": 0,
+      "net": 0
+    },
+    {
+      "id": "log-6ffdojqgs",
+      "studentId": "student-ngom868wz",
+      "teacherId": "admin-1",
+      "branch": "Matematik",
+      "date": "2026-05-20T21:00:00.000Z",
+      "solved": 5,
+      "correct": 0,
+      "incorrect": 0,
+      "net": 0
+    },
+    {
+      "id": "log-k5aws86pj",
+      "studentId": "student-n01s15igi",
+      "teacherId": "admin-1",
+      "branch": "Matematik",
+      "date": "2026-05-09T21:00:00.000Z",
+      "solved": 20,
+      "correct": 0,
+      "incorrect": 0,
+      "net": 0
+    },
+    {
+      "id": "log-d5juai3bh",
+      "studentId": "student-n01s15igi",
+      "teacherId": "admin-1",
+      "branch": "Türkçe",
+      "date": "2026-05-14T21:00:00.000Z",
+      "solved": 15,
+      "correct": 0,
+      "incorrect": 0,
+      "net": 0
+    },
+    {
+      "id": "log-iziarqm56",
+      "studentId": "student-n01s15igi",
+      "teacherId": "admin-1",
+      "branch": "Türkçe",
+      "date": "2026-05-19T21:00:00.000Z",
+      "solved": 10,
+      "correct": 0,
+      "incorrect": 0,
+      "net": 0
+    },
+    {
+      "id": "log-uk2qvzrmg",
+      "studentId": "student-bkefveijn",
+      "teacherId": "admin-1",
+      "branch": "Matematik",
+      "date": "2026-05-09T21:00:00.000Z",
+      "solved": 20,
+      "correct": 0,
+      "incorrect": 0,
+      "net": 0
+    },
+    {
+      "id": "log-oah4y3czn",
+      "studentId": "student-55fpw4hcd",
+      "teacherId": "admin-1",
+      "branch": "Matematik",
+      "date": "2026-05-09T21:00:00.000Z",
+      "solved": 20,
+      "correct": 0,
+      "incorrect": 0,
+      "net": 0
+    },
+    {
+      "id": "log-cfwq311d5",
+      "studentId": "student-55fpw4hcd",
+      "teacherId": "admin-1",
+      "branch": "Türkçe",
+      "date": "2026-05-14T21:00:00.000Z",
+      "solved": 15,
+      "correct": 0,
+      "incorrect": 0,
+      "net": 0
+    },
+    {
+      "id": "log-phkudh998",
+      "studentId": "student-khmgaw96d",
+      "teacherId": "admin-1",
+      "branch": "Matematik",
+      "date": "2026-05-09T21:00:00.000Z",
+      "solved": 20,
+      "correct": 0,
+      "incorrect": 0,
+      "net": 0
+    },
+    {
+      "id": "log-6amn2qwsa",
+      "studentId": "student-khmgaw96d",
+      "teacherId": "admin-1",
+      "branch": "Türkçe",
+      "date": "2026-05-14T21:00:00.000Z",
+      "solved": 15,
+      "correct": 0,
+      "incorrect": 0,
+      "net": 0
+    },
+    {
+      "id": "log-lw1ji8532",
+      "studentId": "student-khmgaw96d",
+      "teacherId": "admin-1",
+      "branch": "Türkçe",
+      "date": "2026-05-19T21:00:00.000Z",
+      "solved": 10,
+      "correct": 0,
+      "incorrect": 0,
+      "net": 0
+    },
+    {
+      "id": "log-iocm0vjlx",
+      "studentId": "student-meg6aqjyv",
+      "teacherId": "teacher-8kbjjmwk8",
+      "branch": "Matematik",
+      "date": "2026-05-20T21:00:00.000Z",
+      "solved": 50,
+      "correct": 0,
+      "incorrect": 0,
+      "net": 0
+    }
+  ]
+}
