@@ -73,6 +73,36 @@ export default function App() {
   // Sidebar Menu Toggle States
   const [reportsMenuOpen, setReportsMenuOpen] = useState(true);
 
+  // Target / Homework States
+  const [targetClassId, setTargetClassId] = useState('');
+  const [targetStartDate, setTargetStartDate] = useState(() => {
+    const d = new Date();
+    const day = d.getDay();
+    const diff = d.getDate() - day + (day === 0 ? -6 : 1);
+    const monday = new Date(d.setDate(diff));
+    return monday.toISOString().split('T')[0];
+  });
+  const [targetEndDate, setTargetEndDate] = useState(() => {
+    const d = new Date();
+    const day = d.getDay();
+    const diff = d.getDate() - day + (day === 0 ? 0 : 7);
+    const sunday = new Date(d.setDate(diff));
+    return sunday.toISOString().split('T')[0];
+  });
+  const [targetReportData, setTargetReportData] = useState(null);
+  const [loadingTargetReport, setLoadingTargetReport] = useState(false);
+  const [assignType, setAssignType] = useState('class');
+  const [assignStudentId, setAssignStudentId] = useState('');
+  const [assignGoals, setAssignGoals] = useState({
+    "Türkçe": 0,
+    "Matematik": 0,
+    "Fen Bilimleri": 0,
+    "T.C. İnkılap Tarihi ve Atatürkçülük": 0,
+    "Din Kültürü ve Ahlak Bilgisi": 0,
+    "Yabancı Dil (İngilizce)": 0
+  });
+  const [isAssigning, setIsAssigning] = useState(false);
+
   // Filter States (Admin Logs View)
   const [logFilterClass, setLogFilterClass] = useState('');
   const [logFilterStudent, setLogFilterStudent] = useState('');
@@ -236,6 +266,18 @@ export default function App() {
         const stds = await api.get('/api/students');
         setStudents(stds);
       }
+      else if (activeTab === 'targets') {
+        const cls = await api.get('/api/classes');
+        setClasses(cls);
+        const stds = await api.get('/api/students');
+        setStudents(stds);
+        
+        const isAdminUser = user && user.role === 'admin';
+        const allowedClasses = cls.filter(c => isAdminUser || !user?.classIds || user.classIds.length === 0 || user.classIds.includes(c.id));
+        if (allowedClasses.length > 0 && !targetClassId) {
+          setTargetClassId(allowedClasses[0].id);
+        }
+      }
     } catch (err) {
       showError(err.message);
     }
@@ -301,6 +343,75 @@ export default function App() {
     setStudentReportStats(null);
     setStudentReportLogs([]);
   }, [studentReportClassId]);
+
+  const fetchTargetReport = async () => {
+    if (!targetClassId || !targetStartDate || !targetEndDate) {
+      setTargetReportData(null);
+      return;
+    }
+    try {
+      setLoadingTargetReport(true);
+      const url = `/api/targets/report?classId=${targetClassId}&startDate=${targetStartDate}&endDate=${targetEndDate}`;
+      const data = await api.get(url);
+      setTargetReportData(data);
+    } catch (err) {
+      showError(err.message);
+    } finally {
+      setLoadingTargetReport(false);
+    }
+  };
+
+  useEffect(() => {
+    if (activeTab === 'targets' && targetClassId) {
+      fetchTargetReport();
+    } else if (activeTab === 'targets' && !targetClassId) {
+      setTargetReportData(null);
+    }
+  }, [targetClassId, targetStartDate, targetEndDate, activeTab]);
+
+  const handleSaveTargets = async (e) => {
+    e.preventDefault();
+    const targetId = assignType === 'class' ? targetClassId : assignStudentId;
+    if (!targetId) {
+      return showError(assignType === 'class' ? 'Lütfen bir sınıf seçin.' : 'Lütfen bir öğrenci seçin.');
+    }
+    
+    const goals = {};
+    Object.keys(assignGoals).forEach(b => {
+      goals[b] = parseInt(assignGoals[b]) || 0;
+    });
+
+    const hasActiveGoal = Object.values(goals).some(g => g > 0);
+    if (!hasActiveGoal) {
+      return showError('Lütfen en az bir ders için soru hedefi belirleyin.');
+    }
+
+    try {
+      setIsAssigning(true);
+      const res = await api.post('/api/targets', {
+        type: assignType,
+        targetId,
+        goals,
+        startDate: targetStartDate,
+        endDate: targetEndDate
+      });
+      showSuccess(res.message);
+      fetchTargetReport();
+      setAssignGoals({
+        "Türkçe": 0,
+        "Matematik": 0,
+        "Fen Bilimleri": 0,
+        "T.C. İnkılap Tarihi ve Atatürkçülük": 0,
+        "Din Kültürü ve Ahlak Bilgisi": 0,
+        "Yabancı Dil (İngilizce)": 0
+      });
+      setAssignStudentId('');
+    } catch (err) {
+      showError(err.message);
+    } finally {
+      setIsAssigning(false);
+    }
+  };
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -1083,6 +1194,14 @@ export default function App() {
                 <PlusCircle size={18} />
                 <span>Soru Girişi</span>
               </button>
+
+              <button 
+                className={`sidebar-link ${activeTab === 'targets' ? 'active' : ''}`}
+                onClick={() => { setActiveTab('targets'); setMobileMenuOpen(false); }}
+              >
+                <CheckCircle size={18} />
+                <span>Ödev & Hedefler</span>
+              </button>
             </>
           ) : (
             <>
@@ -1150,6 +1269,14 @@ export default function App() {
               >
                 <BookOpen size={18} />
                 <span>Girdiğim Kayıtlar</span>
+              </button>
+
+              <button 
+                className={`sidebar-link ${activeTab === 'targets' ? 'active' : ''}`}
+                onClick={() => { setActiveTab('targets'); setMobileMenuOpen(false); }}
+              >
+                <CheckCircle size={18} />
+                <span>Ödev & Hedefler</span>
               </button>
             </>
           )}
@@ -1309,6 +1436,100 @@ export default function App() {
                     </div>
                   </div>
                 </div>
+
+                {(() => {
+                  const todayStr = new Date().toISOString().split('T')[0];
+                  const activeTarget = user && user.targets && user.targets.find(t => todayStr >= t.startDate && todayStr <= t.endDate) || 
+                                       (user && user.targets && user.targets.length > 0 ? user.targets[user.targets.length - 1] : null);
+                  
+                  if (!activeTarget) return null;
+
+                  let targetBranchProgress = {};
+                  let targetTotalSolved = 0;
+                  let targetTotalGoal = 0;
+
+                  Object.keys(activeTarget.goals).forEach(branch => {
+                    const goalVal = activeTarget.goals[branch] || 0;
+                    if (goalVal > 0) {
+                      const solvedInLogs = logs
+                        .filter(l => l.branch === branch && l.date >= activeTarget.startDate && l.date <= activeTarget.endDate)
+                        .reduce((sum, l) => sum + (parseInt(l.solved) || 0), 0);
+                      
+                      targetBranchProgress[branch] = {
+                        goal: goalVal,
+                        solved: solvedInLogs,
+                        percent: Math.min(100, Math.round((solvedInLogs / goalVal) * 100))
+                      };
+                      
+                      targetTotalSolved += solvedInLogs;
+                      targetTotalGoal += goalVal;
+                    }
+                  });
+
+                  const overallPercent = targetTotalGoal > 0 ? Math.min(100, Math.round((targetTotalSolved / targetTotalGoal) * 100)) : 0;
+                  const isSuccess = overallPercent === 100;
+
+                  return (
+                    <div className="glass-card" style={{ marginBottom: '2rem', borderLeft: '4px solid var(--primary)' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+                        <div>
+                          <h3 style={{ margin: 0, display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '1.3rem' }}>
+                            <CheckCircle size={20} color="var(--primary)" />
+                            Haftalık Ödev ve Hedeflerim
+                          </h3>
+                          <p className="text-muted" style={{ margin: '0.25rem 0 0 0', fontSize: '0.85rem' }}>
+                            {activeTarget.startDate} - {activeTarget.endDate} tarihleri arası hedefleriniz (Atayan: {activeTarget.assignedBy || 'Öğretmen'})
+                          </p>
+                        </div>
+                        <div style={{ backgroundColor: 'var(--primary-glow)', padding: '0.5rem 1rem', borderRadius: '20px', border: '1px solid rgba(37, 99, 235, 0.2)' }}>
+                          <span style={{ fontWeight: '700', color: 'var(--primary)', fontSize: '0.9rem' }}>
+                            Genel İlerleme: %{overallPercent}
+                          </span>
+                        </div>
+                      </div>
+
+                      {isSuccess && (
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', backgroundColor: 'rgba(16, 185, 129, 0.1)', padding: '1rem', borderRadius: '12px', marginBottom: '1.5rem', border: '1px solid rgba(16, 185, 129, 0.2)' }}>
+                          <Award size={24} color="var(--success)" />
+                          <div>
+                            <span style={{ fontWeight: '700', color: 'var(--success)', display: 'block', fontSize: '0.95rem' }}>Tebrikler! 🎉</span>
+                            <span className="text-muted" style={{ fontSize: '0.85rem' }}>Bu haftaki tüm soru çözme hedeflerini başarıyla tamamladın! Çalışmaya devam et.</span>
+                          </div>
+                        </div>
+                      )}
+
+                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
+                        {Object.keys(activeTarget.goals).map((branch) => {
+                          const goalVal = activeTarget.goals[branch] || 0;
+                          if (goalVal === 0) return null;
+
+                          const progress = targetBranchProgress[branch] || { goal: goalVal, solved: 0, percent: 0 };
+                          const isCompleted = progress.solved >= progress.goal;
+
+                          return (
+                            <div key={branch} style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', padding: '1rem', borderRadius: '12px', background: 'rgba(37, 99, 235, 0.01)', border: '1px solid var(--border-color)' }}>
+                              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <span style={{ fontWeight: '600', fontSize: '0.85rem' }}>{branch}</span>
+                                <span style={{ fontSize: '0.8rem', fontWeight: '700', color: isCompleted ? 'var(--success)' : 'var(--text-main)' }}>
+                                  {progress.solved} / {progress.goal} soru ({progress.percent}%)
+                                </span>
+                              </div>
+                              <div style={{ width: '100%', height: '8px', backgroundColor: '#e2e8f0', borderRadius: '4px', overflow: 'hidden' }}>
+                                <div style={{ 
+                                  width: `${progress.percent}%`, 
+                                  height: '100%', 
+                                  backgroundColor: isCompleted ? 'var(--success)' : 'var(--primary)', 
+                                  transition: 'width 0.5s ease',
+                                  borderRadius: '4px'
+                                }} />
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  );
+                })()}
 
                 <div className="grid-2col" style={{ marginBottom: '2rem' }}>
                   {/* Daily Trend Chart */}
@@ -3219,7 +3440,274 @@ export default function App() {
             ) : null}
           </div>
         )}
+        {/* ----------------- HEDEFLER & ÖDEVLER VIEW ----------------- */}
+        {activeTab === 'targets' && (isAdmin || user.role === 'teacher') && (
+          <div className="animate-fade-in">
+            <div className="view-header">
+              <div className="view-header-title">
+                <h1 className="title-gradient" style={{ fontSize: '2rem' }}>Ödev & Branş Hedefleri</h1>
+                <p className="text-muted">Öğrencilere haftalık branş bazlı soru çözme hedefleri atayın ve takibini yapın.</p>
+              </div>
+            </div>
 
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem', alignItems: 'start' }}>
+              
+              {/* TARGET ASSIGNMENT FORM */}
+              <div className="glass-card">
+                <h2 style={{ fontSize: '1.25rem', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <PlusCircle size={20} color="var(--primary)" />
+                  Yeni Hedef Tanımla
+                </h2>
+                
+                <form onSubmit={handleSaveTargets}>
+                  <div className="form-group">
+                    <label className="form-label">Atama Türü</label>
+                    <div style={{ display: 'flex', gap: '1rem', marginTop: '0.5rem' }}>
+                      <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
+                        <input 
+                          type="radio" 
+                          name="assignType" 
+                          checked={assignType === 'class'} 
+                          onChange={() => { setAssignType('class'); setAssignStudentId(''); }}
+                          style={{ cursor: 'pointer' }}
+                        />
+                        Sınıf Bazlı
+                      </label>
+                      <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
+                        <input 
+                          type="radio" 
+                          name="assignType" 
+                          checked={assignType === 'student'} 
+                          onChange={() => setAssignType('student')}
+                          style={{ cursor: 'pointer' }}
+                        />
+                        Öğrenci Bazlı
+                      </label>
+                    </div>
+                  </div>
+
+                  <div className="form-group">
+                    <label className="form-label">Sınıf / Şube</label>
+                    <select
+                      value={targetClassId}
+                      onChange={(e) => {
+                        setTargetClassId(e.target.value);
+                        setAssignStudentId('');
+                      }}
+                      className="glass-input"
+                      required
+                    >
+                      <option value="">-- Sınıf Seçin --</option>
+                      {classes
+                        .filter(c => isAdmin || !user.classIds || user.classIds.length === 0 || user.classIds.includes(c.id))
+                        .map(c => (
+                          <option key={c.id} value={c.id}>{c.name}</option>
+                        ))}
+                    </select>
+                  </div>
+
+                  {assignType === 'student' && (
+                    <div className="form-group">
+                      <label className="form-label">Öğrenci Seçimi</label>
+                      <select
+                        value={assignStudentId}
+                        onChange={(e) => setAssignStudentId(e.target.value)}
+                        className="glass-input"
+                        required={assignType === 'student'}
+                        disabled={!targetClassId}
+                      >
+                        <option value="">-- Öğrenci Seçin --</option>
+                        {students
+                          .filter(s => s.active && s.classId === targetClassId)
+                          .map(s => (
+                            <option key={s.id} value={s.id}>{s.name} (No: {s.studentNo || '-'})</option>
+                          ))}
+                      </select>
+                      {!targetClassId && (
+                        <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Önce yukarıdan bir sınıf seçmelisiniz.</span>
+                      )}
+                    </div>
+                  )}
+
+                  <div className="grid-2col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1rem' }}>
+                    <div className="form-group" style={{ marginBottom: 0 }}>
+                      <label className="form-label">Başlangıç Tarihi</label>
+                      <input 
+                        type="date" 
+                        value={targetStartDate}
+                        onChange={(e) => setTargetStartDate(e.target.value)}
+                        className="glass-input"
+                        required
+                      />
+                    </div>
+                    <div className="form-group" style={{ marginBottom: 0 }}>
+                      <label className="form-label">Bitiş Tarihi</label>
+                      <input 
+                        type="date" 
+                        value={targetEndDate}
+                        onChange={(e) => setTargetEndDate(e.target.value)}
+                        className="glass-input"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div style={{ backgroundColor: 'rgba(37, 99, 235, 0.02)', padding: '1rem', borderRadius: '12px', border: '1px solid var(--border-color)', marginBottom: '1.5rem' }}>
+                    <label className="form-label" style={{ marginBottom: '1rem', color: 'var(--text-main)' }}>Branş Hedefleri (Soru Sayısı)</label>
+                    
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                      {[
+                        "Türkçe",
+                        "Matematik",
+                        "Fen Bilimleri",
+                        "T.C. İnkılap Tarihi ve Atatürkçülük",
+                        "Din Kültürü ve Ahlak Bilgisi",
+                        "Yabancı Dil (İngilizce)"
+                      ].map(branch => (
+                        <div key={branch} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem' }}>
+                          <span style={{ fontSize: '0.85rem', fontWeight: '500' }}>{branch}</span>
+                          <input 
+                            type="number"
+                            min="0"
+                            value={assignGoals[branch] || 0}
+                            onChange={(e) => setAssignGoals({
+                              ...assignGoals,
+                              [branch]: parseInt(e.target.value) || 0
+                            })}
+                            style={{ width: '80px', textAlign: 'center', padding: '0.3rem' }}
+                            className="glass-input"
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <button 
+                    type="submit" 
+                    className="btn btn-primary" 
+                    style={{ width: '100%', justifyContent: 'center' }}
+                    disabled={isAssigning}
+                  >
+                    {isAssigning ? <RefreshCw className="animate-spin" size={16} /> : 'Hedefleri Tanımla / Ata'}
+                  </button>
+                </form>
+              </div>
+
+              {/* TARGETS REPORT LIST */}
+              <div className="glass-card" style={{ gridColumn: 'span 2' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '1rem' }}>
+                  <h2 style={{ fontSize: '1.25rem', margin: 0, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <Activity size={20} color="var(--primary)" />
+                    Haftalık Hedef Raporu
+                  </h2>
+                  <button 
+                    onClick={fetchTargetReport} 
+                    className="btn btn-secondary" 
+                    style={{ padding: '0.5rem' }}
+                    disabled={loadingTargetReport}
+                  >
+                    <RefreshCw size={16} className={loadingTargetReport ? 'animate-spin' : ''} />
+                  </button>
+                </div>
+
+                {!targetClassId ? (
+                  <div style={{ textAlign: 'center', padding: '4rem 0', color: 'var(--text-muted)' }}>
+                    Lütfen hedef durumunu incelemek istediğiniz sınıfı seçin.
+                  </div>
+                ) : loadingTargetReport ? (
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '300px', gap: '1rem', color: 'var(--text-muted)' }}>
+                    <RefreshCw className="animate-spin" size={32} style={{ color: 'var(--primary)' }} />
+                    <span style={{ fontSize: '0.95rem' }}>Hedef rapor verileri yükleniyor...</span>
+                  </div>
+                ) : !targetReportData || !targetReportData.reports || targetReportData.reports.length === 0 ? (
+                  <div style={{ textAlign: 'center', padding: '4rem 0', color: 'var(--text-muted)' }}>
+                    Seçilen sınıf için bu tarih aralığında hedefler bulunmamaktadır. Sol taraftaki formdan yeni hedefler tanımlayabilirsiniz.
+                  </div>
+                ) : (
+                  <div className="table-container" style={{ overflowX: 'auto' }}>
+                    <table className="custom-table">
+                      <thead>
+                        <tr>
+                          <th>Öğrenci Adı (No)</th>
+                          <th style={{ textAlign: 'center' }}>Matematik</th>
+                          <th style={{ textAlign: 'center' }}>Türkçe</th>
+                          <th style={{ textAlign: 'center' }}>Fen Bil.</th>
+                          <th style={{ textAlign: 'center' }}>İnkılap</th>
+                          <th style={{ textAlign: 'center' }}>Din K.</th>
+                          <th style={{ textAlign: 'center' }}>İngilizce</th>
+                          <th style={{ textAlign: 'center' }}>Genel Durum</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {targetReportData.reports.map(rep => {
+                          const percent = rep.totalTarget > 0 ? Math.min(100, Math.round((rep.totalSolved / rep.totalTarget) * 100)) : 0;
+                          
+                          return (
+                            <tr key={rep.studentId}>
+                              <td>
+                                <strong>{rep.studentName}</strong>
+                                <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>No: {rep.studentNo || '-'}</div>
+                              </td>
+                              {[
+                                "Matematik",
+                                "Türkçe",
+                                "Fen Bilimleri",
+                                "T.C. İnkılap Tarihi ve Atatürkçülük",
+                                "Din Kültürü ve Ahlak Bilgisi",
+                                "Yabancı Dil (İngilizce)"
+                              ].map(b => {
+                                const brData = rep.branchReports[b] || { solved: 0, target: 0 };
+                                const completed = brData.target > 0 && brData.solved >= brData.target;
+                                if (brData.target === 0) {
+                                  return (
+                                    <td key={b} style={{ textAlign: 'center', color: '#cbd5e1', fontSize: '0.85rem' }}>
+                                      -
+                                    </td>
+                                  );
+                                }
+                                return (
+                                  <td key={b} style={{ textAlign: 'center', fontSize: '0.85rem' }}>
+                                    <span style={{ 
+                                      fontWeight: '600', 
+                                      color: completed ? 'var(--success)' : (brData.solved > 0 ? 'var(--primary)' : 'var(--text-main)') 
+                                    }}>
+                                      {brData.solved} / {brData.target}
+                                    </span>
+                                  </td>
+                                );
+                              })}
+                              <td style={{ width: '150px' }}>
+                                {rep.hasTarget ? (
+                                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', fontWeight: '700' }}>
+                                      <span>%{percent}</span>
+                                      <span>{rep.totalSolved} / {rep.totalTarget}</span>
+                                    </div>
+                                    <div style={{ width: '100%', height: '6px', backgroundColor: '#e2e8f0', borderRadius: '3px', overflow: 'hidden' }}>
+                                      <div style={{ 
+                                        width: `${percent}%`, 
+                                        height: '100%', 
+                                        backgroundColor: percent === 100 ? 'var(--success)' : 'var(--primary)',
+                                        borderRadius: '3px'
+                                      }} />
+                                    </div>
+                                  </div>
+                                ) : (
+                                  <span style={{ color: 'var(--text-muted)', fontSize: '0.8rem' }}>Hedef Yok</span>
+                                )}
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+              </div>
+
+            </div>
+          </div>
+        )}
         {/* Password Change Modal */}
         {showPasswordModal && (
           <div className="modal-overlay">
