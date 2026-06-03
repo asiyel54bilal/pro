@@ -61,6 +61,25 @@ function safeParseTargets(targetsField) {
   return [];
 }
 
+function parseCompositeStudent(s) {
+  if (!s) return s;
+  const parts = (s.id || '').split('|||');
+  const realId = parts[0].trim();
+  let targetsVal = [];
+  if (parts[1]) {
+    try {
+      targetsVal = JSON.parse(parts[1]);
+    } catch (e) {
+      console.error('[Database] parseCompositeStudent error parsing targets JSON:', e.message, 'Value was:', parts[1]);
+    }
+  }
+  return {
+    ...s,
+    id: realId,
+    targets: targetsVal
+  };
+}
+
 // Helper to write to local backup file
 function writeLocalBackup(data) {
   try {
@@ -154,10 +173,7 @@ async function initDb() {
       dbCache = {
         classes: sheetsData.classes || [],
         users: sheetsData.users || [],
-        students: (sheetsData.students || []).map(s => ({
-          ...s,
-          targets: safeParseTargets(s.targets)
-        })),
+        students: (sheetsData.students || []).map(parseCompositeStudent),
         logs: sheetsData.logs || []
       };
       writeLocalBackup(dbCache);
@@ -239,13 +255,16 @@ export function saveCollection(name, data) {
     lastWriteTime = Date.now();
     console.log(`[Database] Collection "${name}" updated. Syncing to Google Sheets in background...`);
     
-    // Normalize data for Sheets: stringify targets so it goes as a primitive string
+    // Normalize data for Sheets: merge targets into the ID field using composite string
     let dataForSheets = data;
     if (name === 'students' && Array.isArray(data)) {
-      dataForSheets = data.map(student => ({
-        ...student,
-        targets: JSON.stringify(student.targets || [])
-      }));
+      dataForSheets = data.map(student => {
+        const { targets, ...rest } = student;
+        return {
+          ...rest,
+          id: student.id + '|||' + JSON.stringify(targets || [])
+        };
+      });
     }
 
     // Run in background (do not await)
@@ -273,10 +292,7 @@ if (GOOGLE_SHEETS_URL) {
         dbCache = {
           classes: sheetsData.classes || [],
           users: sheetsData.users || [],
-          students: (sheetsData.students || []).map(s => ({
-            ...s,
-            targets: safeParseTargets(s.targets)
-          })),
+          students: (sheetsData.students || []).map(parseCompositeStudent),
           logs: sheetsData.logs || []
         };
         writeLocalBackup(dbCache);
