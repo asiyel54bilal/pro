@@ -232,25 +232,27 @@ export function getCollection(name) {
 
 // Save specific collection
 export function saveCollection(name, data) {
-  let dataToSave = data;
-  if (name === 'students' && Array.isArray(data)) {
-    dataToSave = data.map(student => ({
-      ...student,
-      targets: student.targets || []
-    }));
-  }
-
-  dbCache[name] = dataToSave;
+  dbCache[name] = data;
   writeLocalBackup(dbCache);
   
   if (GOOGLE_SHEETS_URL) {
     lastWriteTime = Date.now();
     console.log(`[Database] Collection "${name}" updated. Syncing to Google Sheets in background...`);
+    
+    // Normalize data for Sheets: stringify targets so it goes as a primitive string
+    let dataForSheets = data;
+    if (name === 'students' && Array.isArray(data)) {
+      dataForSheets = data.map(student => ({
+        ...student,
+        targets: JSON.stringify(student.targets || [])
+      }));
+    }
+
     // Run in background (do not await)
     postToGoogleSheets({
       action: 'saveCollection',
       name: name,
-      data: dataToSave
+      data: dataForSheets
     }).then(success => {
       if (success) {
         console.log(`[Database] Background sync to Google Sheets succeeded for "${name}".`);
