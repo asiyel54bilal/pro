@@ -45,6 +45,22 @@ const GOOGLE_SHEETS_TOKEN = process.env.GOOGLE_SHEETS_TOKEN || 'LGS_TRACKER_SHEE
 let dbCache = { ...initialData };
 let lastWriteTime = 0;
 
+function safeParseTargets(targetsField) {
+  if (!targetsField) return [];
+  if (Array.isArray(targetsField)) return targetsField;
+  if (typeof targetsField === 'string') {
+    const trimmed = targetsField.trim();
+    if (!trimmed) return [];
+    try {
+      return JSON.parse(trimmed);
+    } catch (err) {
+      console.error('[Database] safeParseTargets error parsing JSON:', err.message, 'Value was:', targetsField);
+      return [];
+    }
+  }
+  return [];
+}
+
 // Helper to write to local backup file
 function writeLocalBackup(data) {
   try {
@@ -138,7 +154,10 @@ async function initDb() {
       dbCache = {
         classes: sheetsData.classes || [],
         users: sheetsData.users || [],
-        students: sheetsData.students || [],
+        students: (sheetsData.students || []).map(s => ({
+          ...s,
+          targets: safeParseTargets(s.targets)
+        })),
         logs: sheetsData.logs || []
       };
       writeLocalBackup(dbCache);
@@ -163,6 +182,12 @@ function loadLocalDb() {
     try {
       const content = fs.readFileSync(DB_FILE, 'utf-8');
       dbCache = JSON.parse(content);
+      if (dbCache.students && Array.isArray(dbCache.students)) {
+        dbCache.students = dbCache.students.map(s => ({
+          ...s,
+          targets: s.targets || []
+        }));
+      }
     } catch (error) {
       console.error('[Database] Local database parse error, recreating empty structure:', error.message);
       dbCache = { ...initialData };
@@ -207,7 +232,15 @@ export function getCollection(name) {
 
 // Save specific collection
 export function saveCollection(name, data) {
-  dbCache[name] = data;
+  let dataToSave = data;
+  if (name === 'students' && Array.isArray(data)) {
+    dataToSave = data.map(student => ({
+      ...student,
+      targets: student.targets || []
+    }));
+  }
+
+  dbCache[name] = dataToSave;
   writeLocalBackup(dbCache);
   
   if (GOOGLE_SHEETS_URL) {
@@ -217,7 +250,7 @@ export function saveCollection(name, data) {
     postToGoogleSheets({
       action: 'saveCollection',
       name: name,
-      data: data
+      data: dataToSave
     }).then(success => {
       if (success) {
         console.log(`[Database] Background sync to Google Sheets succeeded for "${name}".`);
@@ -238,7 +271,10 @@ if (GOOGLE_SHEETS_URL) {
         dbCache = {
           classes: sheetsData.classes || [],
           users: sheetsData.users || [],
-          students: sheetsData.students || [],
+          students: (sheetsData.students || []).map(s => ({
+            ...s,
+            targets: safeParseTargets(s.targets)
+          })),
           logs: sheetsData.logs || []
         };
         writeLocalBackup(dbCache);
