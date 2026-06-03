@@ -102,6 +102,8 @@ export default function App() {
     "Yabancı Dil (İngilizce)": 0
   });
   const [isAssigning, setIsAssigning] = useState(false);
+  const [isEditingTarget, setIsEditingTarget] = useState(false);
+  const [editingTargetStudentName, setEditingTargetStudentName] = useState('');
 
   // Filter States (Admin Logs View)
   const [logFilterClass, setLogFilterClass] = useState('');
@@ -406,10 +408,83 @@ export default function App() {
         "Yabancı Dil (İngilizce)": 0
       });
       setAssignStudentId('');
+      setIsEditingTarget(false);
+      setEditingTargetStudentName('');
     } catch (err) {
       showError(err.message);
     } finally {
       setIsAssigning(false);
+    }
+  };
+
+  const handleEditTarget = (rep) => {
+    setAssignType('student');
+    setAssignStudentId(rep.studentId);
+    
+    const goals = {
+      "Türkçe": 0,
+      "Matematik": 0,
+      "Fen Bilimleri": 0,
+      "T.C. İnkılap Tarihi ve Atatürkçülük": 0,
+      "Din Kültürü ve Ahlak Bilgisi": 0,
+      "Yabancı Dil (İngilizce)": 0
+    };
+    
+    Object.keys(rep.branchReports).forEach(b => {
+      if (goals[b] !== undefined) {
+        goals[b] = rep.branchReports[b].target || 0;
+      }
+    });
+    
+    setAssignGoals(goals);
+    setIsEditingTarget(true);
+    setEditingTargetStudentName(rep.studentName);
+    
+    // Scroll to target form smoothly
+    const formElement = document.querySelector('form');
+    if (formElement) {
+      formElement.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleDeleteTarget = async (studentId) => {
+    if (!window.confirm('Bu öğrenci için bu haftalık hedefi silmek istediğinizden emin misiniz?')) return;
+    try {
+      setIsAssigning(true);
+      const res = await api.delete(`/api/targets?studentId=${studentId}&startDate=${targetStartDate}&endDate=${targetEndDate}`);
+      showSuccess(res.message);
+      fetchTargetReport();
+      if (isEditingTarget && assignStudentId === studentId) {
+        setIsEditingTarget(false);
+        setEditingTargetStudentName('');
+        setAssignGoals({
+          "Türkçe": 0,
+          "Matematik": 0,
+          "Fen Bilimleri": 0,
+          "T.C. İnkılap Tarihi ve Atatürkçülük": 0,
+          "Din Kültürü ve Ahlak Bilgisi": 0,
+          "Yabancı Dil (İngilizce)": 0
+        });
+      }
+    } catch (err) {
+      showError(err.message);
+    } finally {
+      setIsAssigning(false);
+    }
+  };
+
+  const handleUpdateTargetStatus = async (studentId, statusOverride) => {
+    try {
+      const res = await api.put('/api/targets/status', {
+        studentId,
+        startDate: targetStartDate,
+        endDate: targetEndDate,
+        statusOverride
+      });
+      showSuccess(res.message);
+      fetchTargetReport();
+    } catch (err) {
+      showError(err.message);
     }
   };
 
@@ -1466,11 +1541,22 @@ export default function App() {
                     }
                   });
 
-                  const overallPercent = targetTotalGoal > 0 ? Math.min(100, Math.round((targetTotalSolved / targetTotalGoal) * 100)) : 0;
-                  const isSuccess = overallPercent === 100;
+                  let overallPercent = targetTotalGoal > 0 ? Math.min(100, Math.round((targetTotalSolved / targetTotalGoal) * 100)) : 0;
+                  
+                  let isSuccess = overallPercent === 100;
+                  let borderLeftStyle = '4px solid var(--primary)';
+                  
+                  if (activeTarget.statusOverride === 'completed') {
+                    overallPercent = 100;
+                    isSuccess = true;
+                    borderLeftStyle = '4px solid var(--success)';
+                  } else if (activeTarget.statusOverride === 'uncompleted') {
+                    isSuccess = false;
+                    borderLeftStyle = '4px solid var(--danger)';
+                  }
 
                   return (
-                    <div className="glass-card" style={{ marginBottom: '2rem', borderLeft: '4px solid var(--primary)' }}>
+                    <div className="glass-card" style={{ marginBottom: '2rem', borderLeft: borderLeftStyle }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '0.5rem' }}>
                         <div>
                           <h3 style={{ margin: 0, display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '1.3rem' }}>
@@ -1492,8 +1578,24 @@ export default function App() {
                         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', backgroundColor: 'rgba(16, 185, 129, 0.1)', padding: '1rem', borderRadius: '12px', marginBottom: '1.5rem', border: '1px solid rgba(16, 185, 129, 0.2)' }}>
                           <Award size={24} color="var(--success)" />
                           <div>
-                            <span style={{ fontWeight: '700', color: 'var(--success)', display: 'block', fontSize: '0.95rem' }}>Tebrikler! 🎉</span>
-                            <span className="text-muted" style={{ fontSize: '0.85rem' }}>Bu haftaki tüm soru çözme hedeflerini başarıyla tamamladın! Çalışmaya devam et.</span>
+                            <span style={{ fontWeight: '700', color: 'var(--success)', display: 'block', fontSize: '0.95rem' }}>
+                              {activeTarget.statusOverride === 'completed' ? 'Ödev Tamamlandı (Manuel) 🎉' : 'Tebrikler! 🎉'}
+                            </span>
+                            <span className="text-muted" style={{ fontSize: '0.85rem' }}>
+                              {activeTarget.statusOverride === 'completed' 
+                                ? 'Bu haftaki ödeviniz öğretmeniniz tarafından el ile "Tamamlandı" olarak işaretlendi.' 
+                                : 'Bu haftaki tüm soru çözme hedeflerini başarıyla tamamladın! Çalışmaya devam et.'}
+                            </span>
+                          </div>
+                        </div>
+                      )}
+
+                      {activeTarget.statusOverride === 'uncompleted' && (
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', backgroundColor: 'rgba(239, 68, 68, 0.1)', padding: '1rem', borderRadius: '12px', marginBottom: '1.5rem', border: '1px solid rgba(239, 68, 68, 0.2)' }}>
+                          <AlertCircle size={24} color="var(--danger)" />
+                          <div>
+                            <span style={{ fontWeight: '700', color: 'var(--danger)', display: 'block', fontSize: '0.95rem' }}>Ödev Tamamlanmadı ⚠️</span>
+                            <span className="text-muted" style={{ fontSize: '0.85rem' }}>Bu ödev öğretmeniniz tarafından "Tamamlanmadı" olarak işaretlendi. Lütfen eksiklerinizi tamamlayın.</span>
                           </div>
                         </div>
                       )}
@@ -3456,8 +3558,46 @@ export default function App() {
               <div className="glass-card">
                 <h2 style={{ fontSize: '1.25rem', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                   <PlusCircle size={20} color="var(--primary)" />
-                  Yeni Hedef Tanımla
+                  {isEditingTarget ? 'Hedefi Düzenle' : 'Yeni Hedef Tanımla'}
                 </h2>
+                
+                {isEditingTarget && (
+                  <div style={{ 
+                    display: 'flex', 
+                    justifyContent: 'space-between', 
+                    alignItems: 'center', 
+                    backgroundColor: 'rgba(59, 130, 246, 0.08)', 
+                    padding: '0.75rem 1rem', 
+                    borderRadius: '8px', 
+                    marginBottom: '1.25rem',
+                    border: '1px solid rgba(59, 130, 246, 0.2)'
+                  }}>
+                    <span style={{ fontSize: '0.85rem', fontWeight: '600', color: 'var(--primary)' }}>
+                      Düzenleme: {editingTargetStudentName}
+                    </span>
+                    <button 
+                      type="button" 
+                      onClick={() => {
+                        setIsEditingTarget(false);
+                        setEditingTargetStudentName('');
+                        setAssignType('class');
+                        setAssignStudentId('');
+                        setAssignGoals({
+                          "Türkçe": 0,
+                          "Matematik": 0,
+                          "Fen Bilimleri": 0,
+                          "T.C. İnkılap Tarihi ve Atatürkçülük": 0,
+                          "Din Kültürü ve Ahlak Bilgisi": 0,
+                          "Yabancı Dil (İngilizce)": 0
+                        });
+                      }} 
+                      className="btn btn-secondary" 
+                      style={{ padding: '0.2rem 0.5rem', fontSize: '0.75rem' }}
+                    >
+                      Vazgeç
+                    </button>
+                  </div>
+                )}
                 
                 <form onSubmit={handleSaveTargets}>
                   <div className="form-group">
@@ -3588,7 +3728,7 @@ export default function App() {
                     style={{ width: '100%', justifyContent: 'center' }}
                     disabled={isAssigning}
                   >
-                    {isAssigning ? <RefreshCw className="animate-spin" size={16} /> : 'Hedefleri Tanımla / Ata'}
+                    {isAssigning ? <RefreshCw className="animate-spin" size={16} /> : (isEditingTarget ? 'Hedefi Güncelle' : 'Hedefleri Tanımla / Ata')}
                   </button>
                 </form>
               </div>
@@ -3636,12 +3776,26 @@ export default function App() {
                           <th style={{ textAlign: 'center' }}>Din K.</th>
                           <th style={{ textAlign: 'center' }}>İngilizce</th>
                           <th style={{ textAlign: 'center' }}>Genel Durum</th>
+                          <th style={{ textAlign: 'center', width: '140px' }}>İşlemler</th>
                         </tr>
                       </thead>
                       <tbody>
                         {targetReportData.reports.map(rep => {
                           const percent = rep.totalTarget > 0 ? Math.min(100, Math.round((rep.totalSolved / rep.totalTarget) * 100)) : 0;
                           
+                          let displayPercent = percent;
+                          let barColor = percent === 100 ? 'var(--success)' : 'var(--primary)';
+                          let statusBadge = null;
+
+                          if (rep.statusOverride === 'completed') {
+                            displayPercent = 100;
+                            barColor = 'var(--success)';
+                            statusBadge = <div style={{ fontSize: '0.7rem', color: 'var(--success)', fontWeight: '600', marginTop: '0.2rem' }}>El ile Tamamlandı</div>;
+                          } else if (rep.statusOverride === 'uncompleted') {
+                            barColor = 'var(--danger)';
+                            statusBadge = <div style={{ fontSize: '0.7rem', color: 'var(--danger)', fontWeight: '600', marginTop: '0.2rem' }}>El ile Yapılmadı</div>;
+                          }
+
                           return (
                             <tr key={rep.studentId}>
                               <td>
@@ -3680,21 +3834,78 @@ export default function App() {
                                 {rep.hasTarget ? (
                                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
                                     <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', fontWeight: '700' }}>
-                                      <span>%{percent}</span>
+                                      <span>%{displayPercent}</span>
                                       <span>{rep.totalSolved} / {rep.totalTarget}</span>
                                     </div>
                                     <div style={{ width: '100%', height: '6px', backgroundColor: '#e2e8f0', borderRadius: '3px', overflow: 'hidden' }}>
                                       <div style={{ 
-                                        width: `${percent}%`, 
+                                        width: `${displayPercent}%`, 
                                         height: '100%', 
-                                        backgroundColor: percent === 100 ? 'var(--success)' : 'var(--primary)',
+                                        backgroundColor: barColor,
                                         borderRadius: '3px'
                                       }} />
                                     </div>
+                                    {statusBadge}
                                   </div>
                                 ) : (
                                   <span style={{ color: 'var(--text-muted)', fontSize: '0.8rem' }}>Hedef Yok</span>
                                 )}
+                              </td>
+                              <td style={{ textAlign: 'center', whiteSpace: 'nowrap' }}>
+                                {rep.hasTarget ? (
+                                  <div style={{ display: 'flex', gap: '0.35rem', justifyContent: 'center' }}>
+                                    <button 
+                                      onClick={() => handleEditTarget(rep)}
+                                      className="btn btn-secondary"
+                                      style={{ padding: '0.25rem 0.4rem', borderRadius: '4px', border: '1px solid rgba(0,0,0,0.1)' }}
+                                      title="Hedefi Düzenle"
+                                    >
+                                      <Edit size={13} />
+                                    </button>
+                                    
+                                    {rep.statusOverride !== 'completed' && (
+                                      <button 
+                                        onClick={() => handleUpdateTargetStatus(rep.studentId, 'completed')}
+                                        className="btn btn-secondary"
+                                        style={{ padding: '0.25rem 0.4rem', borderRadius: '4px', color: 'var(--success)', border: '1px solid rgba(0,0,0,0.1)' }}
+                                        title="Tamamlandı Olarak İşaretle"
+                                      >
+                                        <CheckCircle size={13} />
+                                      </button>
+                                    )}
+                                    
+                                    {rep.statusOverride !== 'uncompleted' && (
+                                      <button 
+                                        onClick={() => handleUpdateTargetStatus(rep.studentId, 'uncompleted')}
+                                        className="btn btn-secondary"
+                                        style={{ padding: '0.25rem 0.4rem', borderRadius: '4px', color: 'var(--danger)', border: '1px solid rgba(0,0,0,0.1)' }}
+                                        title="Yapılmadı Olarak İşaretle"
+                                      >
+                                        <XCircle size={13} />
+                                      </button>
+                                    )}
+                                    
+                                    {rep.statusOverride && (
+                                      <button 
+                                        onClick={() => handleUpdateTargetStatus(rep.studentId, null)}
+                                        className="btn btn-secondary"
+                                        style={{ padding: '0.25rem 0.4rem', borderRadius: '4px', color: 'var(--primary)', border: '1px solid rgba(0,0,0,0.1)' }}
+                                        title="Durumu Sıfırla (Hesapla)"
+                                      >
+                                        <RefreshCw size={13} />
+                                      </button>
+                                    )}
+                                    
+                                    <button 
+                                      onClick={() => handleDeleteTarget(rep.studentId)}
+                                      className="btn btn-secondary"
+                                      style={{ padding: '0.25rem 0.4rem', borderRadius: '4px', color: 'var(--danger)', border: '1px solid rgba(0,0,0,0.1)' }}
+                                      title="Hedefi Sil"
+                                    >
+                                      <Trash2 size={13} />
+                                    </button>
+                                  </div>
+                                ) : '-'}
                               </td>
                             </tr>
                           );
