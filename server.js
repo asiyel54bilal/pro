@@ -1165,11 +1165,19 @@ app.post('/api/targets', authenticateToken, requireStaff, (req, res) => {
     if (matchesTarget) {
       student.targets = student.targets || [];
       
+      // Preserve any existing statusOverride for this week
+      const existing = student.targets.find(t => t.startDate === startDate && t.endDate === endDate);
+      const previousOverride = existing ? existing.statusOverride : undefined;
+      
       // Remove any existing target for the exact same week to avoid duplication
       student.targets = student.targets.filter(t => t.startDate !== startDate || t.endDate !== endDate);
       
-      // Add the new target
-      student.targets.push(targetObj);
+      // Add the new target with preserved override
+      const newTarget = { ...targetObj };
+      if (previousOverride !== undefined) {
+        newTarget.statusOverride = previousOverride;
+      }
+      student.targets.push(newTarget);
       
       // Limit history to last 10 entries to keep data size reasonable
       if (student.targets.length > 10) {
@@ -1262,7 +1270,8 @@ app.get('/api/targets/report', authenticateToken, requireStaff, (req, res) => {
       totalTarget,
       totalSolved,
       hasTarget: !!activeTarget,
-      assignedBy: activeTarget ? activeTarget.assignedBy : null
+      assignedBy: activeTarget ? activeTarget.assignedBy : null,
+      statusOverride: activeTarget ? (activeTarget.statusOverride || null) : null
     };
   });
 
@@ -1272,6 +1281,85 @@ app.get('/api/targets/report', authenticateToken, requireStaff, (req, res) => {
     endDate,
     reports
   });
+});
+
+// Delete a target for a student/week
+app.delete('/api/targets', authenticateToken, requireStaff, (req, res) => {
+  const { studentId, startDate, endDate } = req.query;
+
+  if (!studentId || !startDate || !endDate) {
+    return res.status(400).json({ error: 'studentId, startDate ve endDate parametreleri zorunludur.' });
+  }
+
+  const students = getCollection('students');
+  const student = students.find(s => s.id === studentId);
+
+  if (!student) {
+    return res.status(404).json({ error: 'Öğrenci bulunamadı.' });
+  }
+
+  // Verify class access if teacher
+  if (req.user.role === 'teacher') {
+    const teacherClassIds = req.user.classIds || [];
+    if (!teacherClassIds.includes(student.classId)) {
+      return res.status(403).json({ error: 'Bu öğrencinin hedeflerini silme yetkiniz yok.' });
+    }
+  }
+
+  student.targets = student.targets || [];
+  const originalLength = student.targets.length;
+  student.targets = student.targets.filter(t => t.startDate !== startDate || t.endDate !== endDate);
+
+  if (student.targets.length === originalLength) {
+    return res.status(404).json({ error: 'Bu tarih aralığı için tanımlı hedef bulunamadı.' });
+  }
+
+  saveCollection('students', students);
+  res.json({ message: 'Haftalık hedef başarıyla silindi.' });
+});
+
+// Update statusOverride for a student/week target
+app.put('/api/targets/status', authenticateToken, requireStaff, (req, res) => {
+  const { studentId, startDate, endDate, statusOverride } = req.body;
+
+  if (!studentId || !startDate || !endDate) {
+    return res.status(400).json({ error: 'studentId, startDate ve endDate alanları zorunludur.' });
+  }
+
+  if (statusOverride !== 'completed' && statusOverride !== 'uncompleted' && statusOverride !== null && statusOverride !== undefined) {
+    return res.status(400).json({ error: 'Geçersiz durum (sadece "completed", "uncompleted" veya null olabilir).' });
+  }
+
+  const students = getCollection('students');
+  const student = students.find(s => s.id === studentId);
+
+  if (!student) {
+    return res.status(404).json({ error: 'Öğrenci bulunamadı.' });
+  }
+
+  // Verify class access if teacher
+  if (req.user.role === 'teacher') {
+    const teacherClassIds = req.user.classIds || [];
+    if (!teacherClassIds.includes(student.classId)) {
+      return res.status(403).json({ error: 'Bu öğrencinin hedeflerini güncelleme yetkiniz yok.' });
+    }
+  }
+
+  student.targets = student.targets || [];
+  const target = student.targets.find(t => t.startDate === startDate && t.endDate === endDate);
+
+  if (!target) {
+    return res.status(404).json({ error: 'Bu tarih aralığı için tanımlı hedef bulunamadı.' });
+  }
+
+  if (statusOverride === null || statusOverride === undefined) {
+    delete target.statusOverride;
+  } else {
+    target.statusOverride = statusOverride;
+  }
+
+  saveCollection('students', students);
+  res.json({ message: 'Hedef durumu başarıyla güncellendi.' });
 });
 
 
